@@ -12,6 +12,45 @@ class SpotifyApiClient():
         self.auth_body = {
             "Authorization" : f"Bearer {access_token}"
         }
+        self.auth_playlist = {
+            
+            "Authorization" : f"Bearer {access_token}",
+            "Content-Type" : "application/json"
+            
+        }
+
+
+
+    def get_playlist_to_genre(self,genres):
+
+        print(':genres:________________________________________________________________________________________________________________________________________')
+
+        # get genre
+
+        playlists_uris = []
+        for genre in genres:
+
+            # à la place d'un espace mette : %20
+
+            encoded_genre = genre.replace(' ', '%20')
+
+            
+
+        
+            playlist_url = self.API_BASE_URL + "/search?q=playlist:"+encoded_genre+"&type=playlist&limit=1"
+            
+            playlist_get = requests.get(playlist_url, headers=self.auth_playlist)
+            playlists_data = json.loads(playlist_get.text)
+
+            playlists_uris.append(playlists_data['playlists']['items'][0]['id'])
+
+            print(playlists_data['playlists']['items'][0]['id'])
+            print(':playlist:________________________________________________________________________________________________________________________________________')
+
+
+        return playlists_uris
+
+
 
     def get_user_info(self):
 
@@ -46,8 +85,7 @@ class SpotifyApiClient():
         followed_artists_data = json.loads(followed_artists_get.text)
         shows_data = json.loads(shows_get.text)
 
-        print(shows_data)
-        print("hzllo it's me")
+        
 
 
         return output_dict(user_info=user_info_data, playlist_info=playlists_data, following_info=followed_artists_data, podcasts=shows_data)
@@ -57,6 +95,7 @@ class SpotifyApiClient():
         url = self.API_BASE_URL + f"/me/top/{top_type}?time_range={time_range}&limit={limit}"
         get = requests.get(url, headers=self.auth_body)
         data = retry_call(json.loads, fargs=[get.text]) #resends request if failure; avoids 500+ errors
+
 
         data_dict = {}
 

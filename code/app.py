@@ -33,6 +33,9 @@ def redirectPage():
 # -------------------------------------------------m
 @app.route('/settings')
 def mysettings():    
+    api_client = init_api_client()
+    user_id = api_client.get_playlist_to_genre()
+
     return render_template('settings.html')
 
 
@@ -59,6 +62,12 @@ def myhomepage():
     data_client = DataClient(api_client, song_ids, artist_ids, session.get('time_frame'))
 
     user_top_genres = data_client.get_user_top_genres()
+
+
+    playlists_uris =  api_client.get_playlist_to_genre(user_top_genres)
+
+
+
 
 
 
@@ -100,7 +109,7 @@ def myhomepage():
     
     
 
-    return render_template('Mindex.html', genres=user_top_genres, songs=songs, song_ids=song_ids, song_covers=song_covers, song_artists=song_artists, song_albums=song_albums, artists=artists, artist_ids=artist_ids, artist_covers=artist_covers, zip=zip, time=time_frame)
+    return render_template('Mindex.html', playlists_uris=playlists_uris, genres=user_top_genres, songs=songs, song_ids=song_ids, song_covers=song_covers, song_artists=song_artists, song_albums=song_albums, artists=artists, artist_ids=artist_ids, artist_covers=artist_covers, zip=zip, time=time_frame)
 
 
 

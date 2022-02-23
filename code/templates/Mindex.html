@@ -35,7 +35,7 @@
 
       <div class="section-title">
         <h2>Tops</h2>
-        <p>Your Tops 5 Tracks, Artists and Podacts</p>
+        <p>Your Tops 5 Tracks, Artists </p>
       </div>
 
 
@@ -147,13 +147,53 @@
           <div class="tab-content">
             <div class="tab-pane active show" id="tab-1">
               <div class="row">
-                <div class="col-lg-8 details order-2 order-lg-1">
+                
+               
+
+                <div class="col-lg-5 details order-2 order-lg-1">
                   <h3>{{genres[0]}}</h3>
-                  <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                  <p>Et nobis maiores eius. Voluptatibus ut enim blanditiis atque harum sint. Laborum eos ipsum ipsa odit magni. Incidunt hic ut molestiae aut qui. Est repellat minima eveniet eius et quis magni nihil. Consequatur dolorem quaerat quos qui similique accusamus nostrum rem vero</p>
+                  <p class="fst-italic"> You can here your tracks of this genre and a playlist of this genre that you shoud like </p>
+              
+
+
+                  <div style="overflow: scroll;">
+                    <!-- change height to increase the number of visible row  -->
+                    <table class="table">
+                      <tbody>      
+                        {% for i, a_cover, id in zip(range(5), artist_covers, artist_ids) %}      
+                              <td>
+                                <a href="info/{{id}}A">
+                                  <img src="{{a_cover}}" width="100" height="100"/>
+                                </a>
+                              </td>                                            
+                      {% endfor %}
+          
+                      </tbody>
+                    </table>
+                    </div>
+
+                    
+
+                    
+
+                   
+
+                      
+
+
+
+
+
+
+
+
+
+
+                  
+
                 </div>
-                <div class="col-lg-4 text-center order-1 order-lg-2">
-                  <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1Wc17kLi2R2EsIACx5ElYt?utm_source=generator" width="70%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <div class="col-lg-5 text-center order-1 order-lg-2">
+                  <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/{{playlists_uris[0]}}" width="100%" height="270" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
                 </div>
               
               </div>
@@ -163,8 +203,9 @@
               <div class="row">
                 <div class="col-lg-8 details order-2 order-lg-1">
                   <h3>{{genres[1]}}</h3>
-                  <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                  <p>Ea ipsum voluptatem consequatur quis est. Illum error ullam omnis quia et reiciendis sunt sunt est. Non aliquid repellendus itaque accusamus eius et velit ipsa voluptates. Optio nesciunt eaque beatae accusamus lerode pakto madirna desera vafle de nideran pal</p>
+                  
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/{{playlists_uris[1]}}" width="70%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                  
                 </div>
                 
               </div>
@@ -174,8 +215,8 @@
               <div class="row">
                 <div class="col-lg-8 details order-2 order-lg-1">
                   <h3>{{genres[2]}}</h3>
-                  <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                  <p>Ea ipsum voluptatem consequatur quis est. Illum error ullam omnis quia et reiciendis sunt sunt est. Non aliquid repellendus itaque accusamus eius et velit ipsa voluptates. Optio nesciunt eaque beatae accusamus lerode pakto madirna desera vafle de nideran pal</p>
+                  <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/{{playlists_uris[2]}}" width="70%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
                 </div>
                 
               </div>
@@ -185,8 +226,8 @@
               <div class="row">
                 <div class="col-lg-8 details order-2 order-lg-1">
                   <h3>{{genres[3]}}</h3>
-                  <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                  <p>Ea ipsum voluptatem consequatur quis est. Illum error ullam omnis quia et reiciendis sunt sunt est. Non aliquid repellendus itaque accusamus eius et velit ipsa voluptates. Optio nesciunt eaque beatae accusamus lerode pakto madirna desera vafle de nideran pal</p>
+                  <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/{{playlists_uris[3]}}" width="70%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
                 </div>
                 
               </div>
@@ -196,8 +237,8 @@
               <div class="row">
                 <div class="col-lg-8 details order-2 order-lg-1">
                   <h3>{{genres[4]}}</h3>
-                  <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                  <p>Ea ipsum voluptatem consequatur quis est. Illum error ullam omnis quia et reiciendis sunt sunt est. Non aliquid repellendus itaque accusamus eius et velit ipsa voluptates. Optio nesciunt eaque beatae accusamus lerode pakto madirna desera vafle de nideran pal</p>
+                  <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/{{playlists_uris[4]}}" width="70%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
                 </div>
                 
               </div>
