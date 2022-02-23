@@ -1,0 +1,253 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+ 
+
+  
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+    <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
+      <div class="row">
+        <div class="col-lg-8">
+          <h1>Welcome to <spanh>TrackSpot</spanh></h1>
+          <h2>Spotify analytic and recommandation tool for you</h2>
+
+        </div>
+
+
+
+      </div>
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+
+  <!--//////////////working\\\\\\\\\\\\ -->
+
+  <!-- ======= Tops ======= -->
+  <section id="tops" class="tops">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <h2>Tops</h2>
+        <p>Your Tops 5 Tracks, Artists and Podacts</p>
+      </div>
+
+
+        <div id="time-selector">
+            <a href="/change-time/short_term"><h4 id="short">Recent</h4></a>
+            <a href="/change-time/medium_term"><h4 id="medium">6 Months</h4></a>
+            <a href="/change-time/long_term"><h4 id="long">All Time</h4></a>
+            
+            {% if time == "short_term" %}
+                <style>#short{color: #ffffff}</style>
+            {% elif time == "medium_term" %}
+                <style>#medium{color: #ffffff}</style>
+            {% else %}
+                <style>#long{color: #ffffff}</style>
+            {% endif %}
+        </div>
+
+
+
+        <div id="songs-artists">
+            <div class="content a">
+                <h3>Top Tracks</h3>
+                {% for i,song, s_cover, s_artist, s_album, id in zip(range(5),songs, song_covers, song_artists, song_albums, song_ids) %}
+                        <div class="tracks">
+                            <a href='info/{{id}}T'>
+                                <div class="cover">
+                                    {% if id != '' and s_cover != '' %}
+                                        <img src="{{s_cover}}"/>
+                                    {% endif %}
+                                </div>
+                                <div class="name">
+                                    <ptops>{{song}}</ptops>
+                                    <div class='song-info'><ptops><span>{{s_artist}}&nbsp; &#8226; &nbsp;{{s_album}}</span></ptops></div>
+                                </div>
+                            </a>
+                        </div>
+                {%endfor%}
+
+                <div id="show-more">
+                  <a href="/Mmoretracks">Show More</a>
+              </div>
+            </div>
+            <div class="content a">
+                <h3>Top Artists</h3>
+                {% for i, artist, a_cover, id in zip(range(5),artists, artist_covers, artist_ids) %}
+                        <div class="artists">
+                            <a href='info/{{id}}A'>
+                                <div class="cover">
+                                    {% if id != '' and a_cover != '' %}
+                                        <img src="{{a_cover}}"/>
+                                        
+                                    {% endif %}
+                                </div>
+                                <div class="name">
+                                  <ptops>{{artist}}</ptops>
+                                </div>
+                            </a>
+                        </div>
+                {%endfor%}
+                <div id="show-more">
+                  <a href="/Mmoreartists">Show More</a>
+              </div>
+            </div>
+
+            </div>
+        </div>
+        
+
+
+    </div>
+  </section><!-- End Chefs Section -->
+
+  <!-- ======= Specials Genres ======= -->
+  <section id="genres" class="specials">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <h2>Genres</h2>
+        <p>Genres most listened by you</p>
+      </div>
+
+      <div class="row" data-aos="fade-up" data-aos-delay="100">
+        <div class="col-lg-3">
+          <ul class="nav nav-tabs flex-column">
+
+            
+
+            <li class="nav-item">
+              <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">{{genres[0]}}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="tab" href="#tab-2">{{genres[1]}}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="tab" href="#tab-3">{{genres[2]}}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="tab" href="#tab-4">{{genres[3]}}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="tab" href="#tab-5">{{genres[4]}}</a>
+            </li>
+
+          </ul>
+        </div>
+
+
+        <div class="col-lg-9 mt-4 mt-lg-0">
+          <div class="tab-content">
+            <div class="tab-pane active show" id="tab-1">
+              <div class="row">
+                <div class="col-lg-8 details order-2 order-lg-1">
+                  <h3>{{genres[0]}}</h3>
+                  <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
+                  <p>Et nobis maiores eius. Voluptatibus ut enim blanditiis atque harum sint. Laborum eos ipsum ipsa odit magni. Incidunt hic ut molestiae aut qui. Est repellat minima eveniet eius et quis magni nihil. Consequatur dolorem quaerat quos qui similique accusamus nostrum rem vero</p>
+                </div>
+                <div class="col-lg-4 text-center order-1 order-lg-2">
+                  <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1Wc17kLi2R2EsIACx5ElYt?utm_source=generator" width="70%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                </div>
+              
+              </div>
+            </div>
+
+            <div class="tab-pane" id="tab-2">
+              <div class="row">
+                <div class="col-lg-8 details order-2 order-lg-1">
+                  <h3>{{genres[1]}}</h3>
+                  <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
+                  <p>Ea ipsum voluptatem consequatur quis est. Illum error ullam omnis quia et reiciendis sunt sunt est. Non aliquid repellendus itaque accusamus eius et velit ipsa voluptates. Optio nesciunt eaque beatae accusamus lerode pakto madirna desera vafle de nideran pal</p>
+                </div>
+                
+              </div>
+            </div>
+
+            <div class="tab-pane" id="tab-3">
+              <div class="row">
+                <div class="col-lg-8 details order-2 order-lg-1">
+                  <h3>{{genres[2]}}</h3>
+                  <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
+                  <p>Ea ipsum voluptatem consequatur quis est. Illum error ullam omnis quia et reiciendis sunt sunt est. Non aliquid repellendus itaque accusamus eius et velit ipsa voluptates. Optio nesciunt eaque beatae accusamus lerode pakto madirna desera vafle de nideran pal</p>
+                </div>
+                
+              </div>
+            </div>
+
+            <div class="tab-pane" id="tab-4">
+              <div class="row">
+                <div class="col-lg-8 details order-2 order-lg-1">
+                  <h3>{{genres[3]}}</h3>
+                  <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
+                  <p>Ea ipsum voluptatem consequatur quis est. Illum error ullam omnis quia et reiciendis sunt sunt est. Non aliquid repellendus itaque accusamus eius et velit ipsa voluptates. Optio nesciunt eaque beatae accusamus lerode pakto madirna desera vafle de nideran pal</p>
+                </div>
+                
+              </div>
+            </div>
+
+            <div class="tab-pane" id="tab-5">
+              <div class="row">
+                <div class="col-lg-8 details order-2 order-lg-1">
+                  <h3>{{genres[4]}}</h3>
+                  <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
+                  <p>Ea ipsum voluptatem consequatur quis est. Illum error ullam omnis quia et reiciendis sunt sunt est. Non aliquid repellendus itaque accusamus eius et velit ipsa voluptates. Optio nesciunt eaque beatae accusamus lerode pakto madirna desera vafle de nideran pal</p>
+                </div>
+                
+              </div>
+            </div>
+            
+
+          </div>
+        </div>
+      </div>
+
+      
+
+
+    </div>
+  </section><!-- End Specials Genres -->
+
+  <!-- ======= Specials Genres ======= -->
+  <section id="graph" class="specials">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <h2>Your Graph</h2>
+        <p>Your Listening Habits in form of graph</p>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
+          <div class="about-img">
+            <img src="../static/assets/img/diagramgateau.png" alt="">
+
+          </div>
+        </div>
+        <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
+          <h3> Ici se trouvera une brève interpération de la visualisation personnilisée </h3>
+          
+        </div>
+      </div>
+
+
+    </div>
+  </section><!-- End Specials Genres -->
+
+
+  
+
+
+
+
+
+{% endblock %}
+
+
+

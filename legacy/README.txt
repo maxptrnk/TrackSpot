@@ -1,1 +1,3 @@
-Vous placerez ici tout le code que vous récupérerez (ancien projet, etc).
+Dossier avec tout le code de source extérieure utilisé dans le projet:
+
+- Restaurantly : template bootstrap

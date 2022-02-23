@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+  <!--//////////////working\\\\\\\\\\\\ -->
+
+  <main id="main">
+    
+    <div id="more-top">
+        <div id="time-selector">
+            <a href="/change-time/short_termM"><h4 id="short">Recent</h4></a>
+            <a href="/change-time/medium_termM"><h4 id="medium">6 Months</h4></a>
+            <a href="/change-time/long_termM"><h4 id="long">All Time</h4></a>
+            {% if time == "short_term" %}
+                <style>#short{color: #1DB954}</style>
+            {% elif time == "medium_term" %}
+                <style>#medium{color: #1DB954}</style>
+            {% else %}
+                <style>#long{color: #1DB954}</style>
+            {% endif %}
+        </div>
+
+        <div id="type">
+            <div id="more-artists">
+                <div class="top-title">
+                    <h1>Top 50 Artists</h1>
+                </div>
+
+      
+
+                
+
+              
+            </div>
+        </div>
+
+ 
+
+        <div class="container">
+        <table class="table table-dark">
+
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col">Name</th>
+                <th scope="col">Genres</th>
+                <th scope="col">Popularity</th>
+                <th scope="col">Followers</th>
+
+              </tr>
+            </thead>
+            <tbody>
+
+             
+
+
+              {% for i, followers, genres, popularity, artist, a_cover, id in zip(range(1,51),f,g,p,artists, artist_covers, artist_ids) %}
+
+
+
+                <tr>
+                    <th scope="row">{{i}}</th>
+                    <td>
+                        <img src="{{a_cover}}" width="50" height="50"/>
+                    </td>                                        
+                    <td>{{artist}}</td>
+
+                    <td style="width: 450px;">
+                        {% for genre in genres %}    
+                            {{genre}} &nbsp; &#8226; &nbsp;
+                        {% endfor %}
+                    </td>
+                    <td>{{popularity}}</td>
+                    <td>{{followers}}</td>
+                   
+
+                
+                </tr>
+
+                {% endfor %}
+
+
+
+                    
+
+
+            </tbody>
+          </table>
+        </div>
+
+        <div class="form">
+
+          <form action='/Mmoretracks' method="POST">
+              <div class="submit">
+                  <div id="show-more">
+                      <input type="submit" id="button"  class="btn btn-outline-secondary" name="slide-submit" value="Create Playlist" onclick="alert('A new playlist will be created in your Spotify account with the new songs. Enjoy!')">
+                  </div>
+              </div>
+          </form>
+      </div>
+
+      <!-- space -->
+    <div><p> </p></div>
+    <!-- space -->
+    <div><p> </p></div>
+
+
+  </div>  
+
+  <!--//////////////working\\\\\\\\\\\\ -->
+
+{% endblock %}

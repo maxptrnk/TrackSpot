@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <link rel="icon" href= "{{ url_for('static', filename='photos/spotifylogo.png')}}">
+
+  <title>TrackSpot</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../static/assets/img/favicon.png" rel="icon">
+  <link href="../static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../static/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="../static/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../static/assets/css/style.css" rel="stylesheet">
+
+  <!-- Template sections CSS files -->
+
+  <link href="../static/assets/css/music.css" rel="stylesheet">
+  <link rel="stylesheet" href= "{{ url_for('static', filename='css/more.css')}}">
+
+  
+
+
+  <script>document.getElementById('music').className = 'line'</script>
+
+
+
+
+
+
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-cente">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+
+      <h1 class="logo me-auto me-lg-0"><a href="/index">TrackSpot</a></h1>
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto active" href="/index">Home</a></li>
+          <li class="dropdown"><a>Analytics <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li class="dropdown"><a href="#tops">Tops <i class="bi bi-chevron-right"></i></a>
+                <ul>
+                  <li><a href="/Mmoretracks">Top 50 Tracks</a></li>
+                  <li><a href="/Mmoreartists">Top 50 Artists</a></li>
+
+                </ul>
+              </li>
+              <li><a href="/index#genres">Your Genres</a></li>
+              <li><a href="/index#graph">Your Graph</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Recommandations</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+        
+      </nav><!-- .navbar -->
+
+      <li class="nav-link scrollto">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false"style="color: #cda45e;">Maxime Petrenko</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="/settings">Settings</a></li>
+          <li><a class="dropdown-item" href="/">Logout</a></li>
+
+        </ul>
+      </li>
+
+    </div>
+  </header><!-- End Header -->
+
+
+    <!--//////////////working\\\\\\\\\\\\ -->
+
+    {% block content%}{%endblock  %}
+
+    <!--//////////////working\\\\\\\\\\\\ -->
+
+
+
+
+
+
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../static/assets/vendor/aos/aos.js"></script>
+  <script src="../static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../static/assets/vendor/php-email-form/validate.js"></script>
+
+
+  <script>
+    function jump(h){
+        var url = location.href;               //Save down the URL without hash.
+        location.href = "#tops";                 //Go to the target element.
+        history.replaceState(null,null,url);   //Don't like hashes. Changing it back.
+    }
+
+
+    jump();
+    
+  </script>
+
+
+  <!-- Template Main JS File -->
+  <script src="../static/assets/js/main.js"></script>
+
+</body>
+
+</html>
