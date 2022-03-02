@@ -33,6 +33,87 @@ h1m {
 
 
 
+.donutBox{
+  width: 400px;
+}
+
+.graph-description{
+  padding-top: 60px;
+  padding-bottom: 20px;
+
+}
+
+
+
+
+prct {
+  font-family: "Playfair Display", serif;
+  font-size: 26px;
+  color: #cda45e;
+
+}
+
+prctlbl {
+  font-family: "Playfair Display", serif;
+
+}
+
+
+
+
+
+
+/* scrollbar */
+
+
+
+.scrollbar
+{
+	float: left;
+	height: 120px;
+	width: 100%;
+  	overflow-x: scroll;
+  overflow-y: hidden;
+
+	margin-bottom: 25px;
+}
+
+.force-overflow
+{
+	min-height: 0px;
+}
+
+#wrapper
+{
+	text-align: center;
+	margin: auto;
+}
+
+/*
+ *  STYLE 1
+ */
+
+#style-1::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #242424;
+}
+
+#style-1::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #242424;
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #cda45e;
+}
+
+
 
 
 

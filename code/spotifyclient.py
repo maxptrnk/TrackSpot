@@ -23,7 +23,6 @@ class SpotifyApiClient():
 
     def get_playlist_to_genre(self,genres):
 
-        print(':genres:________________________________________________________________________________________________________________________________________')
 
         # get genre
 
@@ -44,8 +43,6 @@ class SpotifyApiClient():
 
             playlists_uris.append(playlists_data['playlists']['items'][0]['id'])
 
-            print(playlists_data['playlists']['items'][0]['id'])
-            print(':playlist:________________________________________________________________________________________________________________________________________')
 
 
         return playlists_uris
@@ -148,6 +145,11 @@ class SpotifyApiClient():
         get = requests.get(url, headers=self.auth_body)
         data = retry_call(json.loads, fargs=[get.text])
         all_info = [info[feature] for info in data[info_type]]
+
+        # print('431224_____________________________________________________-')
+        # print(all_info)
+
+
         
         return all_info
 
@@ -170,3 +172,22 @@ class SpotifyApiClient():
 
         url = self.API_BASE_URL + f"/playlists/{playlist_id}/tracks?uris={csv_ids}"
         post = requests.post(url, headers=self.auth_body)
+    
+    def get_audio_features_for_multiple_songs(self, ids):
+
+        url = self.API_BASE_URL + f"/audio-features?ids={ids}"
+        get = requests.get(url, headers=self.auth_body)
+        data = retry_call(json.loads, fargs=[get.text])
+        all_features = []
+
+        for audio in data['audio_features']:
+
+            features = [audio['danceability'], audio['energy'], audio['acousticness'],
+                        audio['speechiness'], audio['valence'], audio['instrumentalness']]
+
+            all_features.append(features)
+        
+        print("audio features==============================================================================")
+        print(all_features)
+
+        return all_features

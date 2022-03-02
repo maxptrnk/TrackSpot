@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <!-- ======= Specials Genres ======= -->
+  <section id="graph" class="specials">
+    <div class="container" data-aos="fade-up">
+
+ 
+
+    
+
+    
+
+
+      <div class="section-title">
+        <h2>Your Graph</h2>
+        <p>Your Listening Habits in form of graph</p>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
+          <div class="about-img">
+            <div claas="graph-description">
+              <h3> Ici se trouvera une brève interpération de la visualisation personnilisée </h3>
+            </div>
+
+
+            <canvas id="radarChart" width="1200" height="1200" ></canvas>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
+          <div class="about-img">
+    
+            <canvas id="barChart" ></canvas>
+    
+            
+          </div>
+    
+          
+        </div>
+        <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content"><h3> Ici se trouvera une brève interpération de la visualisation personnilisée </h3></div>
+      </div>
+
+
+    </div>
+  </section><!-- End Specials Genres -->
+
+{% endblock %}

@@ -6,9 +6,13 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <link rel="icon" href= "{{ url_for('static', filename='photos/spotifylogo.png')}}">
 
+
   <title>TrackSpot</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
+
+
+
 
 
 
@@ -44,6 +48,12 @@
   <link href="../static/assets/css/music.css" rel="stylesheet">
   <link rel="stylesheet" href= "{{ url_for('static', filename='css/more.css')}}">
 
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script> src="../static/js/visualization.js"</script>
+
   
 
 
@@ -67,21 +77,19 @@
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto active" href="/index">Home</a></li>
-          <li class="dropdown"><a href="">Analytics <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li class="dropdown"><a href="#tops">Tops <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="/Mmoretracks">Top 50 Tracks</a></li>
-                  <li><a href="/Mmoreartists">Top 50 Artists</a></li>
+          
 
-                </ul>
-              </li>
-              <li><a href="/index#genres">Your Genres</a></li>
-              <li><a href="/index#graph">Your Graph</a></li>
+          <li class="dropdown"><a href="/index#tops">Tops <i class="bi bi-chevron-right"></i></a>
+            <ul>
+              <li><a href="/Mmoretracks">Top 50 Tracks</a></li>
+              <li><a href="/Mmoreartists">Top 50 Artists</a></li>
+
             </ul>
           </li>
-          <li><a href="#">Recommandations</a></li>
+          <li><a href="/moregenres">Your Genres</a></li>
+          <li><a href="/moregraphs">Your Graph</a></li>
+
+           
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
         
@@ -137,8 +145,34 @@
   </script>
 
 
+  <script src="../static/assets/js/visualization.js"> </script>
+  <script>
+    user_genres_proportions_doughnut( {{list_top_genres_keys|safe}},{{list_top_genres_values|safe}} );
+  </script>
+  
+  <script>
+    word_graph( {{user_avg_features|safe}}, {{top_avg_features|safe}} );
+  </script>
+
+  <script>
+    radar_graph( {{user_avg_features|safe}}, {{top_avg_features|safe}} );
+  </script>
+
+  <script>
+    bar_graph( {{user_avg_features_recent|safe}}, {{user_avg_features_mid|safe}}, {{user_avg_features_long|safe}} );
+  </script>
+  
+  
+
+
+
+
+  
+
+
+
   <!-- Template Main JS File -->
-  <script src="../static/assets/js/main.js"></script>
+  <script src="../static/assets/js/main.js"> </script>
 
 </body>
 

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <!-- ======= Specials Genres ======= -->
+  <section id="graph" class="specials">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <h2>More about genres</h2>
+        <p>Porportions and Percentage</p>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6 order-1 order-lg-1" data-aos="zoom-in" data-aos-delay="100">
+          <div class="about-img">
+          
+         
+            <div class ="donutBox">
+              <canvas id="genresDoughnut" ></canvas>
+            </div> 
+
+          </div>   
+        </div>
+
+        <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-2 content">
+          <div class="graph-description">
+            <h3> Here are represented proportions of your favorites genres </h3>
+            <ul>
+
+              {% for percentage,label in zip(list_pourcentage_top,list_top_genres_keys) %}      
+                <li>  <prctlbl> {{label}}:</prctlbl> <prct>{{percentage}}</prct></li>
+                                         
+              {% endfor %}
+          
+
+            </ul>
+          </div>
+        </div>
+
+
+       
+        <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-2 content">
+          <div class="graph-description">
+              <h3> But these are not the only ones you listen to. You also listen to other genres and together they represent <prct>{{pourcentage_reste}}%</prct> of your listening </h3>
+            </div>
+          </div>
+
+          <div class="col-lg-6 pt-4 pt-lg-0 order-4 order-lg-4 content">
+            <div class="graph-description">
+              
+            <div class ="donutBox">
+            </div> 
+
+            </div>
+          </div>
+
+      </div>
+    </div>
+  </div>
+</section><!-- End Specials Genres -->
+{% endblock %}
+
+
+

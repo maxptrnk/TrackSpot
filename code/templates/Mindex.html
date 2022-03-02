@@ -4,10 +4,6 @@
 
 {% block content %}
 
- 
-
-  
-
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex align-items-center">
     <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
@@ -148,16 +144,54 @@
             <div class="tab-pane active show" id="tab-1">
               <div class="row">
                 
+                
                
 
-                <div class="col-lg-5 details order-2 order-lg-1">
+                <div class="col-lg-5 details order-lg-1">
                   <h3>{{genres[0]}}</h3>
                   <p class="fst-italic"> You can here your tracks of this genre and a playlist of this genre that you shoud like </p>
-              
 
+                  <div id="wrapper"> 
+                    <div class="scrollbar" id="style-1">
+                      <div class="force-overflow">
 
-                  <div style="overflow: scroll;">
-                    <!-- change height to increase the number of visible row  -->
+                      <table class="table">
+                        <tbody>      
+                          {% for i, a_cover, id in zip(range(5), artist_covers, artist_ids) %}      
+                                <td>
+                                  <a href="info/{{id}}A">
+                                    <img src="{{a_cover}}" width="100" height="100"/>
+                                  </a>
+                                </td>                                            
+                        {% endfor %}
+            
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                  
+                </div>
+                  <div class="col-lg-7 text-center order-1 order-lg-2">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/{{playlists_uris[0]}}" width="100%" height="260" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                  </div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="tab-2">
+              <div class="row">
+
+                <div class="col-lg-7 text-center order-1 order-lg-2">
+                  <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/{{playlists_uris[1]}}" width="100%" height="260" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                </div>
+                <div class="col-lg-5 details order-2 order-lg-1">
+
+                  <h3>{{genres[1]}}</h3>
+                  <p class="fst-italic"> You can here your tracks of this genre and a playlist of this genre that you shoud like </p>
+
+                  <div class="scrollbar" id="style-1">
+                    <div class="force-overflow">
+
                     <table class="table">
                       <tbody>      
                         {% for i, a_cover, id in zip(range(5), artist_covers, artist_ids) %}      
@@ -171,52 +205,50 @@
                       </tbody>
                     </table>
                     </div>
-
-                    
-
-                    
-
-                   
-
-                      
-
-
-
-
-
-
-
-
+                  </div>
 
 
                   
-
-                </div>
-                <div class="col-lg-5 text-center order-1 order-lg-2">
-                  <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/{{playlists_uris[0]}}" width="100%" height="270" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-                </div>
-              
-              </div>
-            </div>
-
-            <div class="tab-pane" id="tab-2">
-              <div class="row">
-                <div class="col-lg-8 details order-2 order-lg-1">
-                  <h3>{{genres[1]}}</h3>
-                  
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/{{playlists_uris[1]}}" width="70%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
                   
                 </div>
+
+
+                
                 
               </div>
             </div>
 
             <div class="tab-pane" id="tab-3">
               <div class="row">
-                <div class="col-lg-8 details order-2 order-lg-1">
-                  <h3>{{genres[2]}}</h3>
-                  <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/{{playlists_uris[2]}}" width="70%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <div class="col-lg-7 text-center order-1 order-lg-2">
+                  <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/{{playlists_uris[2]}}" width="100%" height="260" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                </div>
+                <div class="col-lg-5 details order-2 order-lg-1">
 
+                  <h3>{{genres[2]}}</h3>
+                  <p class="fst-italic"> You can here your tracks of this genre and a playlist of this genre that you shoud like </p>
+
+                  <div class="scrollbar" id="style-1">
+                    <div class="force-overflow">
+
+                    <table class="table">
+                      <tbody>      
+                        {% for i, a_cover, id in zip(range(5), artist_covers, artist_ids) %}      
+                              <td>
+                                <a href="info/{{id}}A">
+                                  <img src="{{a_cover}}" width="100" height="100"/>
+                                </a>
+                              </td>                                            
+                      {% endfor %}
+          
+                      </tbody>
+                    </table>
+                    </div>
+                  </div>
+
+
+                  
+                  
                 </div>
                 
               </div>
@@ -224,21 +256,70 @@
 
             <div class="tab-pane" id="tab-4">
               <div class="row">
-                <div class="col-lg-8 details order-2 order-lg-1">
-                  <h3>{{genres[3]}}</h3>
-                  <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/{{playlists_uris[3]}}" width="70%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-
+                <div class="col-lg-7 text-center order-1 order-lg-2">
+                  <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/{{playlists_uris[3]}}" width="100%" height="260" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
                 </div>
-                
+                <div class="col-lg-5 details order-2 order-lg-1">
+
+                  <h3>{{genres[3]}}</h3>
+                  <p class="fst-italic"> You can here your tracks of this genre and a playlist of this genre that you shoud like </p>
+
+                  <div class="scrollbar" id="style-1">
+                    <div class="force-overflow">
+
+                    <table class="table">
+                      <tbody>      
+                        {% for i, a_cover, id in zip(range(5), artist_covers, artist_ids) %}      
+                              <td>
+                                <a href="info/{{id}}A">
+                                  <img src="{{a_cover}}" width="100" height="100"/>
+                                </a>
+                              </td>                                            
+                      {% endfor %}
+          
+                      </tbody>
+                    </table>
+                    </div>
+                  </div>
+
+
+                  
+                  
+                </div>
               </div>
             </div>
 
             <div class="tab-pane" id="tab-5">
               <div class="row">
-                <div class="col-lg-8 details order-2 order-lg-1">
-                  <h3>{{genres[4]}}</h3>
-                  <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/{{playlists_uris[4]}}" width="70%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <div class="col-lg-7 text-center order-1 order-lg-2">
+                  <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/{{playlists_uris[4]}}"  width="100%" height="260"  frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                </div>
+                <div class="col-lg-5 details order-2 order-lg-1">
 
+                  <h3>{{genres[4]}}</h3>
+                  <p class="fst-italic"> You can here your tracks of this genre and a playlist of this genre that you shoud like </p>
+
+                  <div class="scrollbar" id="style-1">
+                    <div class="force-overflow">
+
+                    <table class="table">
+                      <tbody>      
+                        {% for i, a_cover, id in zip(range(5), artist_covers, artist_ids) %}      
+                              <td>
+                                <a href="info/{{id}}A">
+                                  <img src="{{a_cover}}" width="100" height="100"/>
+                                </a>
+                              </td>                                            
+                      {% endfor %}
+          
+                      </tbody>
+                    </table>
+                    </div>
+                  </div>
+
+
+                  
+                  
                 </div>
                 
               </div>
@@ -255,31 +336,6 @@
     </div>
   </section><!-- End Specials Genres -->
 
-  <!-- ======= Specials Genres ======= -->
-  <section id="graph" class="specials">
-    <div class="container" data-aos="fade-up">
-
-      <div class="section-title">
-        <h2>Your Graph</h2>
-        <p>Your Listening Habits in form of graph</p>
-      </div>
-
-      <div class="row">
-        <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
-          <div class="about-img">
-            <img src="../static/assets/img/diagramgateau.png" alt="">
-
-          </div>
-        </div>
-        <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
-          <h3> Ici se trouvera une brève interpération de la visualisation personnilisée </h3>
-          
-        </div>
-      </div>
-
-
-    </div>
-  </section><!-- End Specials Genres -->
 
 
   
