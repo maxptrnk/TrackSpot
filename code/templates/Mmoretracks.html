@@ -4,11 +4,19 @@
 
 {% block content %}
   <!--//////////////working\\\\\\\\\\\\ -->
-  <main id="main">
-
-
+ 
+<main id="main" style="padding-top: 60px;">
+    
+        <div id="more-top">
+            
    
     <div id="more-top">
+        
+
+        <div id="time-selector">
+            <h1>Top 50 Tracks</h1>
+        </div>
+
         <div id="time-selector">
             <a href="/change-time/short_termM"><h4 id="short">Recent</h4></a>
             <a href="/change-time/medium_termM"><h4 id="medium">6 Months</h4></a>
@@ -20,14 +28,6 @@
             {% else %}
                 <style>#long{color: #1DB954}</style>
             {% endif %}
-        </div>
-
-        <div id="type">
-            <div id="more-artists">
-                <div class="top-title">
-                    <h1>Top 50 Tracks</h1>
-                </div>
-            </div>
         </div>
 
         <div class="container">

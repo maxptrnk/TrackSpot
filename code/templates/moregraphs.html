@@ -6,52 +6,71 @@
   <section id="graph" class="specials">
     <div class="container" data-aos="fade-up">
 
- 
-
-    
-
-    
-
 
       <div class="section-title">
-        <h2>Your Graph</h2>
         <p>Your Listening Habits in form of graph</p>
+        <h2>Your Graph</h2>
       </div>
 
+
+
       <div class="row">
-        <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
+        <div class="col-lg-6 order-2 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
           <div class="about-img">
-            <div claas="graph-description">
-              <h3> Ici se trouvera une brève interpération de la visualisation personnilisée </h3>
-            </div>
-
-
             <canvas id="radarChart" width="1200" height="1200" ></canvas>
+          </div>
+        </div>
+        <div class="col-lg-6 pt-4 pt-lg-0 order-1 order-lg-1 content">
+          <h3> Ici se trouvera une brève interpération de la visualisation personnilisée </h3>
+
+          <ul>
 
             
-          </div>
+            <li><strong>Danceability</strong>: Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.</li>
+            <li><strong>Acousticness</strong>: A measure from 0.0 to 1.0 of whether the track is acoustic.</li>
+            <li><strong>Energy</strong>: Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy.
+            </li>
+            <li><strong>Instrumentalness</strong>: Predicts whether a track contains no vocals. The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content.
+            </li>
+            <li><strong>Liveness</strong>: Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live.
+            </li>
+            <li><strong>Loudness</strong>: The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track. Values typical range between -60 and 0 db.
+            </li>
+            <li><strong>Valence</strong>: A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).
+            </li>      
+                                       
+            <a href="https://medium.com/@boplantinga/what-do-spotifys-audio-features-tell-us-about-this-year-s-eurovision-song-contest-66ad188e112a">Source</a>
 
-          
+          </ul>
+
         </div>
       </div>
-
-
-      <div class="row">
-        <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
-          <div class="about-img">
-    
-            <canvas id="barChart" ></canvas>
-    
-            
-          </div>
-    
-          
-        </div>
-        <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content"><h3> Ici se trouvera une brève interpération de la visualisation personnilisée </h3></div>
-      </div>
-
 
     </div>
   </section><!-- End Specials Genres -->
+
+    <!-- ======= Specials Genres ======= -->
+    <section id="graph" class="specials">
+      <div class="container" data-aos="fade-up">
+  
+  
+  
+        <div class="row">
+          <div class="col-lg-6 order-2 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
+            <div class="about-img">
+              <canvas id="barChart" ></canvas>
+            </div>
+          </div>
+
+          <div class="col-lg-6 pt-4 pt-lg-0 order-1 order-lg-1 content">
+            <h3> Ici se trouvera une brève interpération de la visualisation personnilisée </h3>
+
+            Sur ce graphique sont repris les mêmes features selon les différentes périodes pour mettre en évidence l'évolution de vos goûts dans le temps   
+          </div>
+        </div>
+  
+  
+      </div>
+    </section><!-- End Specials Genres -->
 
 {% endblock %}

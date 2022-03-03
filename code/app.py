@@ -5,6 +5,9 @@ from spotifyclient import *
 from collections import Counter
 from dataclient import *
 
+from pathlib import Path
+from wordcloud import WordCloud
+
 
 import time
 
@@ -34,12 +37,7 @@ def redirectPage():
 
 
 # -------------------------------------------------m
-@app.route('/settings')
-def mysettings():    
-    api_client = init_api_client()
-    user_id = api_client.get_playlist_to_genre()
 
-    return render_template('settings.html')
 
 @app.route('/moregenres')
 def genres():   
@@ -66,6 +64,7 @@ def genres():
     # selection des genres le plus populaire de l'utilisateur
     top_genres = dict(Counter(user_top_genres).most_common(5)) 
 
+    # calcule des pourcentages
     list_pourcentage_top = []
     pourcentage_reste =100
 
@@ -91,8 +90,40 @@ def genres():
     # dict for doughnut graph with top genre, other and their proportion
     no_top_genres[key] = no_top_genres_compteur   
 
-    list_top_genres_keys=list(no_top_genres.keys())
+    list_no_top_genres_keys = list(no_top_genres.keys())
     list_no_top_genres_values = list(no_top_genres.values())
+
+
+    # --------------------------------------------------------------
+
+    # f = open("static/python-wordcloud-tutorial-master/minor_genres.txt", "a")
+    # f.write(key)
+    # f.close()
+
+
+    # TXT_FILE = Path.cwd() / "minor_genres.txt"
+
+    # # Read text
+    # text = open(TXT_FILE, mode="r", encoding="utf-8").read()
+
+
+    # wc = WordCloud(background_color="black", height=350, width=600,min_font_size=14, max_font_size=55, font_step=0)
+    # wc.generate(text)
+
+    # # store to file
+    # wc.to_file("wordcloud_output.png")
+
+    wc = WordCloud(background_color="black", height=350, width=600,min_font_size=14, max_font_size=55, font_step=0)
+    wc.generate(key)
+
+    # store to file
+    wc.to_file("static/photos/wordcloud_output.png")
+
+
+
+
+
+    # --------------------------------------------------------------
 
 
     
@@ -108,7 +139,8 @@ def graphs():
     user_top_artists = api_client.get_user_top_info(33, session.get('time_frame'), "artists")
 
     if not user_top_songs or not user_top_artists: #if the user has no data (i.e the returned dict is empty)
-        return error_page("Sorry, your account does not seem to have any data I can analyze. Please go back to the 'My Music' section and try switching the timeframe to see if you have any data there!")
+        return 'error'
+        # return error_page("Sorry, your account does not seem to have any data I can analyze. Please go back to the 'My Music' section and try switching the timeframe to see if you have any data there!")
 
     else:
         song_ids = user_top_songs['id']
@@ -185,8 +217,8 @@ def myhomepage():
 
 
     #genres
-    user_top_songs = api_client.get_user_top_info(50, session.get('time_frame'), "tracks")
-    user_top_artists = api_client.get_user_top_info(33, session.get('time_frame'), "artists")
+    user_top_songs = api_client.get_user_top_info(25, time_frame, "tracks")
+    user_top_artists = api_client.get_user_top_info(25,time_frame, "artists")
 
     if not user_top_songs or not user_top_artists: #if the user has no data (i.e the returned dict is empty)
         return error_page("Sorry, your account does not seem to have any data I can analyze. Please go back to the 'My Music' section and try switching the timeframe to see if you have any data there!")
@@ -204,16 +236,15 @@ def myhomepage():
     top_genres = dict(Counter(user_top_genres).most_common(5)) 
 
 
-
-
-
-
-
     # get link to playlist suggested by genre
     playlists_uris =  api_client.get_playlist_to_genre(top_genres)
 
     # Top 5 genre (sans valeurs)
     top_genres = list(top_genres)
+
+
+
+
 
     
 
@@ -222,7 +253,7 @@ def myhomepage():
 
     # Tracks and artists
     user_top_tracks = api_client.get_user_top_info(5, time_frame, "tracks")
-    user_top_artists = api_client.get_user_top_info(5, time_frame, "artists")
+    user_top_artists_short = api_client.get_user_top_info(5, time_frame, "artists")
 
     if not user_top_tracks: #if the returned data is empty it will set the values to empty
         songs = ['']
@@ -238,17 +269,49 @@ def myhomepage():
         song_artists = user_top_tracks['trackartistname']
         song_albums = user_top_tracks['trackalbumname']
 
-    if not user_top_artists:
+    if not user_top_artists_short:
         artists = ['']
         artist_ids = ['']
         artist_covers = ['']
     
     else:
-        artists = user_top_artists['name']
-        artist_ids = user_top_artists['id']
-        artist_covers = user_top_artists['image']
-    
-    
+        artists = user_top_artists_short['name']
+        artist_ids = user_top_artists_short['id']
+        artist_covers = user_top_artists_short['image']
+        artists_genres = []
+        artists_per_genre = {}
+
+        # for genre in top_genres:     
+        #     for artist in user_top_artists['id'] :
+
+        #         if (genre in artists_per_genre.keys() and len(artists_per_genre[genre]) < 5) or genre not in artists_per_genre.keys():
+
+        #             print("_______________________________")
+
+
+        #             artist_info = api_client.get_track_or_artist_info(artist, "artists")
+        #             artists_genres.append(artist_info['genres'])
+                    
+        #             # get user_artists for each genre
+        #             if genre in artist_info['genres']:
+
+        #                 if genre not in artists_per_genre.keys() :
+        #                     # print(artists_per_genre)µ
+                            
+        #                     # print(genre)
+        #                     artists_per_genre[genre] = {}
+        #                     # print(artists_per_genre)
+        #                     artists_per_genre[genre][artist]= artist_info['image']
+        #                     # print(artists_per_genre)
+        #                 else:
+        #                     # print(artists_per_genre)
+        #                     artists_per_genre[genre][artist]= artist_info['image']
+        #                     # print(artists_per_genre)
+
+        #                 print(len(artists_per_genre[genre]))
+
+
+                
 
     return render_template('Mindex.html', playlists_uris=playlists_uris, genres=top_genres, songs=songs, song_ids=song_ids, song_covers=song_covers, song_artists=song_artists, song_albums=song_albums, artists=artists, artist_ids=artist_ids, artist_covers=artist_covers, zip=zip, time=time_frame)
 
