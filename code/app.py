@@ -12,6 +12,25 @@ from wordcloud import WordCloud
 import time
 
 
+# -----------------------------------------------------------------
+
+# J'essaye de factoriser le code en mettant l'objet 'data_client' en global, accessible depuis n'importe quelle fonction.
+# Le problème c'est que je ne peux une instance de l'objet que depuis le fonction  redirectPage()
+# je ne vois pas comment je pourrais le faire..
+
+# data_client = DataClient(None, None, None, None)
+
+
+# -----------------------------------
+
+
+
+
+
+
+
+
+
 app = Flask(__name__)
 app.secret_key = "YOUR SECRET KEY"
 
@@ -31,11 +50,28 @@ def redirectPage():
     session['start_time'] = int(time.time())
     session['time_frame'] = "short_term"
 
+
+
+    # data_client------------------------------------------------------------------------------------------
+    api_client = init_api_client()
+
+    user_top_songs = api_client.get_user_top_info(50, session.get('time_frame'), "tracks")
+    user_top_artists = api_client.get_user_top_info(33, session.get('time_frame'), "artists")
+
+    if not user_top_songs or not user_top_artists: 
+        return "error"
+    else:
+        song_ids = user_top_songs['id']
+        artist_ids = user_top_artists['id']
+
+    # data_client = DataClient(api_client, song_ids, artist_ids, session.get('time_frame'))
+
+    # data_client------------------------------------------------------------------------------------------
+
     return redirect(url_for('myhomepage', _external=True))
    
 
 
-# -------------------------------------------------m
 
 
 @app.route('/moregenres')
