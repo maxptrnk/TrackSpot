@@ -23,6 +23,16 @@ class SpotifyApiClient():
 
     def get_playlist_to_genre(self,genres):
 
+        """
+        Find playlists on spotify via an api call for each given genre 
+
+        Parameters:
+        genres : 
+
+        Return:
+        playlists_uris: 
+        """
+
 
         # get genre
 
