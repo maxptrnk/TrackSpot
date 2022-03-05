@@ -30,7 +30,6 @@ def redirectPage():
     session['oauth_info'] = auth_info
     session['start_time'] = int(time.time())
     session['time_frame'] = "short_term"
-    # session['cols'] = ['Danceability', 'Energy', 'Acousticness', 'Speechiness', 'Valence', 'Instrumentalness']
 
     return redirect(url_for('myhomepage', _external=True))
    
@@ -51,7 +50,8 @@ def genres():
     user_top_artists = api_client.get_user_top_info(33, session.get('time_frame'), "artists")
 
     if not user_top_songs or not user_top_artists: #if the user has no data (i.e the returned dict is empty)
-        return error_page("Sorry, your account does not seem to have any data I can analyze. Please go back to the 'My Music' section and try switching the timeframe to see if you have any data there!")
+        return 'error'
+        # return error_page("Sorry, your account does not seem to have any data I can analyze. Please go back to the 'My Music' section and try switching the timeframe to see if you have any data there!")
     else:
         song_ids = user_top_songs['id']
         artist_ids = user_top_artists['id']
@@ -113,15 +113,13 @@ def genres():
     # # store to file
     # wc.to_file("wordcloud_output.png")
 
-    wc = WordCloud(background_color="black", height=350, width=600,min_font_size=14, max_font_size=55, font_step=0)
-    wc.generate(key)
+    # --------------------------------------------------------------
 
-    # store to file
-    wc.to_file("static/photos/wordcloud_output.png")
+    # wc = WordCloud(background_color="black", height=350, width=600,min_font_size=14, max_font_size=55, font_step=0)
+    # wc.generate(key)
 
-
-
-
+    # # store to file
+    # wc.to_file("static/photos/wordcloud_output.png")
 
     # --------------------------------------------------------------
 
@@ -163,7 +161,8 @@ def graphs():
         user_top_artists = api_client.get_user_top_info(33, time, "artists")
 
         if not user_top_songs or not user_top_artists: #if the user has no data (i.e the returned dict is empty)
-            return error_page("Sorry, your account does not seem to have any data I can analyze. Please go back to the 'My Music' section and try switching the timeframe to see if you have any data there!")
+            return 'error'
+            # return error_page("Sorry, your account does not seem to have any data I can analyze. Please go back to the 'My Music' section and try switching the timeframe to see if you have any data there!")
 
         else:
             song_ids = user_top_songs['id']
@@ -187,7 +186,8 @@ def testgraph():
     user_top_artists = api_client.get_user_top_info(33, session.get('time_frame'), "artists")
 
     if not user_top_songs or not user_top_artists: #if the user has no data (i.e the returned dict is empty)
-        return error_page("Sorry, your account does not seem to have any data I can analyze. Please go back to the 'My Music' section and try switching the timeframe to see if you have any data there!")
+        return 'error'
+        # return error_page("Sorry, your account does not seem to have any data I can analyze. Please go back to the 'My Music' section and try switching the timeframe to see if you have any data there!")
 
     else:
         song_ids = user_top_songs['id']
@@ -221,7 +221,8 @@ def myhomepage():
     user_top_artists = api_client.get_user_top_info(25,time_frame, "artists")
 
     if not user_top_songs or not user_top_artists: #if the user has no data (i.e the returned dict is empty)
-        return error_page("Sorry, your account does not seem to have any data I can analyze. Please go back to the 'My Music' section and try switching the timeframe to see if you have any data there!")
+        return 'error'
+        # return error_page("Sorry, your account does not seem to have any data I can analyze. Please go back to the 'My Music' section and try switching the timeframe to see if you have any data there!")
 
     else:
         song_ids = user_top_songs['id']
@@ -235,12 +236,11 @@ def myhomepage():
     # selection des genres le plus populaire de l'utilisateur
     top_genres = dict(Counter(user_top_genres).most_common(5)) 
 
+    # Top 5 genre (sans valeurs)
+    top_genres = list(top_genres)
 
     # get link to playlist suggested by genre
     playlists_uris =  api_client.get_playlist_to_genre(top_genres)
-
-    # Top 5 genre (sans valeurs)
-    top_genres = list(top_genres)
 
 
 
@@ -281,6 +281,7 @@ def myhomepage():
         artists_genres = []
         artists_per_genre = {}
 
+        # # !!boucle trop lente
         # for genre in top_genres:     
         #     for artist in user_top_artists['id'] :
 
@@ -342,7 +343,6 @@ def mymoretracks():
 
     
     if request.method == "POST":
-            print("--------------------------------------CREATE PLAYYYYYYYYYYYYYYYYYYYLIST------------------------------")
 
             user_id = api_client.get_user_info()['user_info']['id']
             playlist_name = "My Top 50 tracks - TrackSpot"
@@ -350,7 +350,6 @@ def mymoretracks():
             get_new_playlist_id = api_client.create_new_playlist(user_id, playlist_name)['id']
             modified_ids = ["spotify:track:" + track_id for track_id in song_ids]
             csv_ids = ','.join(modified_ids)
-            print("---------------------------------------:////////////////////////////>-------------------------------")
            
             api_client.add_items_to_playlist(get_new_playlist_id, csv_ids)
 
