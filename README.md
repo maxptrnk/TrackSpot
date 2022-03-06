@@ -55,6 +55,7 @@ Where your are this directory: 'TrackSpot/code', you can install requirements wi
 
 
 ```
+cd code
 pip install -r requirements.txt
 ```
 
