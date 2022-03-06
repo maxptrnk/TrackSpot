@@ -33,21 +33,17 @@
 pip install virtualenv
 ```
 
-### Create the virtual environment
-
+### Create the virtual environment and Activate the virtual environment
+Mac OS / Linux
 ```
 virtualenv venvTrackSpot
-```
-### Activate the virtual environment
-Mac OS / Linux
-
-```
 source mypython/bin/activate
 ```
 
 Windows
 ```
-mypthon\Scripts\activate
+python -m venv venvTrackSpot
+venvTrackSpot\Scripts\activate
 ```
 
 
