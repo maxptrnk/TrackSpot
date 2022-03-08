@@ -3,11 +3,11 @@ from collections import Counter
 
 class DataClient():
 
-    def __init__(self, api_client, song_ids, artist_ids, time_frame):
-        
+    def __init__(self, api_client, song_ids, artist_ids):
         self.api_client = api_client
+        
         self.spotify_dataset = pd.read_csv('static/assets/csv/spotifytoptracks.csv')
-        # assert
+        self.api_client = api_client
 
         self.ids = {
             "artists": (artist_ids),

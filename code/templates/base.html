@@ -46,13 +46,15 @@
   <!-- Template sections CSS files -->
 
   <link href="../static/assets/css/music.css" rel="stylesheet">
-  <link rel="stylesheet" href= "{{ url_for('static', filename='css/more.css')}}">
 
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script> src="../static/js/visualization.js"</script>
+
+  <script type="text/javascript" src="https://d3js.org/d3.v7.min.js"></script>
+  <script type="text/javascript" src="../static/assets/js/d3.layout.cloud.js"></script>
 
   
 
@@ -96,7 +98,7 @@
       </nav><!-- .navbar -->
 
       <li class="nav-link scrollto">
-        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false"style="color: #cda45e;">Maxime Petrenko</a>
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false"style="color: #cda45e;">{{username}}</a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="/">Logout</a></li>
 
@@ -128,7 +130,6 @@
   <script src="../static/assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="../static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="../static/assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="../static/assets/vendor/php-email-form/validate.js"></script>
 
 
   <script>
@@ -148,10 +149,6 @@
   <script>
     user_genres_proportions_doughnut( {{list_top_genres_keys|safe}},{{list_top_genres_values|safe}} );
   </script>
-  
-  <script>
-    word_graph( {{user_avg_features|safe}}, {{top_avg_features|safe}} );
-  </script>
 
   <script>
     radar_graph( {{user_avg_features|safe}}, {{top_avg_features|safe}} );
@@ -161,7 +158,45 @@
     bar_graph( {{user_avg_features_recent|safe}}, {{user_avg_features_mid|safe}}, {{user_avg_features_long|safe}} );
   </script>
   
-  
+
+  <script type="text/javascript">
+   
+    var layout = d3.layout.cloud()
+        .size([600, 400])
+        .words({{other_genres_listened|safe}}.map(function(d) {
+          return {text: d, size: 8 + Math.random() * 60, test: "haha"};
+        }))
+        .padding(5)
+        .rotate(function() { return ~~(Math.random() * 2) * 90; })
+        .font("Impact")
+        .fontSize(function(d) { return d.size; })
+        .on("end", draw);
+
+    layout.start();
+
+    function draw(words) {
+      d3.select("#wordgraph").append("svg")
+          .attr("width", layout.size()[0])
+          .attr("height", layout.size()[1])
+        .append("g")
+          .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+        .selectAll("text")
+          .data(words)
+        .enter().append("text")
+          .style("font-size", function(d) { return d.size + "px"; })
+          .style("font-family", "Impact")
+          .style("fill",'#FFFF00')
+          .attr("text-anchor", "middle")
+          .attr("transform", function(d) {
+            return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+          })
+          .text(function(d) { return d.text; });
+    }
+  </script>
+
+
+
+
 
 
 

@@ -1,5 +1,7 @@
 
 
+
+
 function user_genres_proportions_doughnut(labels,values){
 
 
@@ -361,58 +363,29 @@ const words = [
     { key: "block", value: 1 }
   ];
   
-  const chart = new Chart(document.getElementById("canvas").getContext("2d"), {
-    type: "wordCloud",
-    data: {
-      labels: words.map((d) => d.key),
-      datasets: [
-        {
-          label: "",
-          data: words.map((d) => 10 + d.value * 10)
-        }
-      ]
+const chart = new Chart(document.getElementById("canvas").getContext("2d"), {
+  type: "wordCloud",
+  data: {
+    labels: words.map((d) => d.key),
+    datasets: [
+      {
+        label: "",
+        data: words.map((d) => 10 + d.value * 10)
+      }
+    ]
+  },
+  options: {
+    title: {
+      display: false,
+      text: "Chart.js Word Cloud"
     },
-    options: {
-      title: {
-        display: false,
-        text: "Chart.js Word Cloud"
-      },
-      plugins: {
-        legend: {
-          display: false
-        }
+    plugins: {
+      legend: {
+        display: false
       }
     }
-  });
+  }
+});
 
 
-  function word_graph(user_data, spotify_data){
 
-
-    var wordgraph = document.getElementById('wordgraph').getContext('2d');
-
-    new Chart(wordgraph, {
-        type: "wordCloud",
-        data: {
-          labels: user_data,
-          datasets: [
-            {
-              label: "",
-              data: spotify_data
-            }
-          ]
-        },
-        options: {
-          title: {
-            display: false,
-            text: "Chart.js Word Cloud"
-          },
-          plugins: {
-            legend: {
-              display: false
-            }
-          }
-        }
-      });
-}
-  

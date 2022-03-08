@@ -38,7 +38,10 @@ h1m {
 }
 
 .donutBox{
-  width: 400px;
+  width: 450px;
+  margin-left: 15%;
+  margin-top: 10%;
+
 }
 
 .graph-description{

@@ -5,25 +5,7 @@ from spotifyclient import *
 from collections import Counter
 from dataclient import *
 
-from pathlib import Path
-from wordcloud import WordCloud
-
-
 import time
-
-
-# -----------------------------------------------------------------
-
-# J'essaye de factoriser le code en mettant l'objet 'data_client' en global, accessible depuis n'importe quelle fonction.
-# Le problème c'est que je ne peux une instance de l'objet que depuis le fonction  redirectPage()
-# je ne vois pas comment je pourrais le faire..
-
-# data_client = DataClient(None, None, None, None)
-
-
-# -----------------------------------
-
-
 
 
 
@@ -35,6 +17,12 @@ app = Flask(__name__)
 app.secret_key = "YOUR SECRET KEY"
 
 oauth_client = SpotifyOauthClient()
+
+# data_client = None
+
+global data_client
+
+
 
 @app.route('/')
 def index():
@@ -51,12 +39,22 @@ def redirectPage():
     session['time_frame'] = "short_term"
 
 
+    
+    
+
+
 
     # data_client------------------------------------------------------------------------------------------
     api_client = init_api_client()
+    request_data = api_client.get_user_info()
 
+    session['username'] = request_data["user_info"]["display_name"]
+
+
+    
+    # data_client------------------------------------------------------------------------------------------
     user_top_songs = api_client.get_user_top_info(50, session.get('time_frame'), "tracks")
-    user_top_artists = api_client.get_user_top_info(33, session.get('time_frame'), "artists")
+    user_top_artists = api_client.get_user_top_info(50, session.get('time_frame'), "artists")
 
     if not user_top_songs or not user_top_artists: 
         return "error"
@@ -64,8 +62,15 @@ def redirectPage():
         song_ids = user_top_songs['id']
         artist_ids = user_top_artists['id']
 
-    # data_client = DataClient(api_client, song_ids, artist_ids, session.get('time_frame'))
+    
+    # print('mpmpmpmppmppmpmmpmpmpmpppmpmpmpmmpmpmpmpmpmpmp')
+    # print(data_client.__dict__)
 
+    global data_client
+    data_client = DataClient(api_client, song_ids, artist_ids)
+    
+
+    # print(data_client.__dict__)
     # data_client------------------------------------------------------------------------------------------
 
     return redirect(url_for('myhomepage', _external=True))
@@ -77,22 +82,6 @@ def redirectPage():
 @app.route('/moregenres')
 def genres():   
 
-
-    api_client = init_api_client()
-    time_frame = session.get('time_frame')
-
-    #genres
-    user_top_songs = api_client.get_user_top_info(50, session.get('time_frame'), "tracks")
-    user_top_artists = api_client.get_user_top_info(33, session.get('time_frame'), "artists")
-
-    if not user_top_songs or not user_top_artists: #if the user has no data (i.e the returned dict is empty)
-        return 'error'
-        # return error_page("Sorry, your account does not seem to have any data I can analyze. Please go back to the 'My Music' section and try switching the timeframe to see if you have any data there!")
-    else:
-        song_ids = user_top_songs['id']
-        artist_ids = user_top_artists['id']
-
-    data_client = DataClient(api_client, song_ids, artist_ids, session.get('time_frame'))
 
     # dic avec toutes les occurences pour chaque genres 
     user_top_genres = data_client.get_user_top_genres()
@@ -116,23 +105,21 @@ def genres():
 
     no_top_genres = top_genres.copy()
     no_top_genres_compteur = 0
-    key = ''
+    other_genres_listened = []
 
     for genre in user_top_genres :
         if genre not in list(top_genres):
             no_top_genres_compteur +=1
-            key = key+' '+genre
+            other_genres_listened.append(genre)
 
     # dict for doughnut graph with top genre, other and their proportion
-    no_top_genres[key] = no_top_genres_compteur   
+    no_top_genres['others'] = no_top_genres_compteur   
 
-    list_no_top_genres_keys = list(no_top_genres.keys())
-    list_no_top_genres_values = list(no_top_genres.values())
 
 
     # --------------------------------------------------------------
 
-    # f = open("static/python-wordcloud-tutorial-master/minor_genres.txt", "a")
+    # f = open("static/minor_genres.txt", "a")
     # f.write(key)
     # f.close()
 
@@ -152,7 +139,9 @@ def genres():
     # --------------------------------------------------------------
 
     # wc = WordCloud(background_color="black", height=350, width=600,min_font_size=14, max_font_size=55, font_step=0)
+
     # wc.generate(key)
+    # print('okokokokokokookokokokok2')
 
     # # store to file
     # wc.to_file("static/photos/wordcloud_output.png")
@@ -162,25 +151,25 @@ def genres():
 
     
 
-    return render_template('moregenres.html', zip=zip,pourcentage_reste=pourcentage_reste,list_pourcentage_top=list_pourcentage_top, list_top_genres_values=list_top_genres_values, list_top_genres_keys=list_top_genres_keys)
+    return render_template('moregenres.html',username=session['username'], zip=zip,other_genres_listened=other_genres_listened,pourcentage_reste=pourcentage_reste,list_pourcentage_top=list_pourcentage_top, list_top_genres_values=list_top_genres_values, list_top_genres_keys=list_top_genres_keys)
 
 
 @app.route('/moregraphs')
 def graphs():
     api_client = init_api_client()
-    #genres
-    user_top_songs = api_client.get_user_top_info(50, session.get('time_frame'), "tracks")
-    user_top_artists = api_client.get_user_top_info(33, session.get('time_frame'), "artists")
+    # #genres
+    # user_top_songs = api_client.get_user_top_info(50, session.get('time_frame'), "tracks")
+    # user_top_artists = api_client.get_user_top_info(33, session.get('time_frame'), "artists")
 
-    if not user_top_songs or not user_top_artists: #if the user has no data (i.e the returned dict is empty)
-        return 'error'
-        # return error_page("Sorry, your account does not seem to have any data I can analyze. Please go back to the 'My Music' section and try switching the timeframe to see if you have any data there!")
+    # if not user_top_songs or not user_top_artists: #if the user has no data (i.e the returned dict is empty)
+    #     return 'error'
+    #     # return error_page("Sorry, your account does not seem to have any data I can analyze. Please go back to the 'My Music' section and try switching the timeframe to see if you have any data there!")
 
-    else:
-        song_ids = user_top_songs['id']
-        artist_ids = user_top_artists['id']
+    # else:
+    #     song_ids = user_top_songs['id']
+    #     artist_ids = user_top_artists['id']
 
-    data_client = DataClient(api_client, song_ids, artist_ids, session.get('time_frame'))
+    # data_client = DataClient(api_client, song_ids, artist_ids, session.get('time_frame'))
 
 
 
@@ -191,10 +180,11 @@ def graphs():
 
     # graph group bar, audio features evolution
 
-    audio_features_evolution = []
-    for time in ['short_term','medium_term','long_term']:
+    # init with short_term because already stored
+    audio_features_evolution = [data_client.get_user_top_avg_audio_features(cols)]
+    for time in ['medium_term','long_term']:
         user_top_songs = api_client.get_user_top_info(50, time, "tracks")
-        user_top_artists = api_client.get_user_top_info(33, time, "artists")
+        user_top_artists = api_client.get_user_top_info(5, time, "artists")
 
         if not user_top_songs or not user_top_artists: #if the user has no data (i.e the returned dict is empty)
             return 'error'
@@ -204,43 +194,37 @@ def graphs():
             song_ids = user_top_songs['id']
             artist_ids = user_top_artists['id']
 
-        data_client = DataClient(api_client, song_ids, artist_ids,time)
-        user_avg_features= data_client.get_user_top_avg_audio_features(cols)
+        data_client_mid_long = DataClient(api_client, song_ids, artist_ids)
+        user_avg_features= data_client_mid_long.get_user_top_avg_audio_features(cols)
         audio_features_evolution.append(user_avg_features)
-
-    return render_template('moregraphs.html',user_avg_features_recent=audio_features_evolution[0], user_avg_features_mid=audio_features_evolution[1],user_avg_features_long=audio_features_evolution[2], user_avg_features=user_avg_features, top_avg_features=top_avg_features )
+        
+    return render_template('moregraphs.html',username=session['username'],user_avg_features_recent=audio_features_evolution[0], user_avg_features_mid=audio_features_evolution[1],user_avg_features_long=audio_features_evolution[2], user_avg_features=user_avg_features, top_avg_features=top_avg_features )
 
 
 
 @app.route("/test")
 def testgraph():
-    api_client = init_api_client()
-    time_frame = session.get('time_frame')
+    # api_client = init_api_client()
+    # time_frame = session.get('time_frame')
 
-    #genres
-    user_top_songs = api_client.get_user_top_info(50, session.get('time_frame'), "tracks")
-    user_top_artists = api_client.get_user_top_info(33, session.get('time_frame'), "artists")
+    # #genres
+    # user_top_songs = api_client.get_user_top_info(50, session.get('time_frame'), "tracks")
+    # user_top_artists = api_client.get_user_top_info(33, session.get('time_frame'), "artists")
 
-    if not user_top_songs or not user_top_artists: #if the user has no data (i.e the returned dict is empty)
-        return 'error'
-        # return error_page("Sorry, your account does not seem to have any data I can analyze. Please go back to the 'My Music' section and try switching the timeframe to see if you have any data there!")
+    # if not user_top_songs or not user_top_artists: #if the user has no data (i.e the returned dict is empty)
+    #     return 'error'
+    #     # return error_page("Sorry, your account does not seem to have any data I can analyze. Please go back to the 'My Music' section and try switching the timeframe to see if you have any data there!")
 
-    else:
-        song_ids = user_top_songs['id']
-        artist_ids = user_top_artists['id']
-    data_client = DataClient(api_client, song_ids, artist_ids, session.get('time_frame'))
+    # else:
+    #     song_ids = user_top_songs['id']
+    #     artist_ids = user_top_artists['id']
+    # data_client = DataClient(api_client, song_ids, artist_ids, session.get('time_frame'))
 
 
     #audio features info
     cols = ['Danceability', 'Energy', 'Acousticness', 'Speechiness', 'Valence', 'Instrumentalness']
     user_avg_features = data_client.get_user_top_avg_audio_features(cols)
     spotify_avg_features = data_client.get_spotify_charts_avg_features(cols)  #audio features info
-
-
-    
-
-
-
 
     return render_template('testgraph.html',user_avg_features=user_avg_features, top_avg_features=spotify_avg_features)
 
@@ -250,21 +234,6 @@ def myhomepage():
     api_client = init_api_client()
     time_frame = session.get('time_frame')
 
-
-
-    #genres
-    user_top_songs = api_client.get_user_top_info(25, time_frame, "tracks")
-    user_top_artists = api_client.get_user_top_info(25,time_frame, "artists")
-
-    if not user_top_songs or not user_top_artists: #if the user has no data (i.e the returned dict is empty)
-        return 'error'
-        # return error_page("Sorry, your account does not seem to have any data I can analyze. Please go back to the 'My Music' section and try switching the timeframe to see if you have any data there!")
-
-    else:
-        song_ids = user_top_songs['id']
-        artist_ids = user_top_artists['id']
-
-    data_client = DataClient(api_client, song_ids, artist_ids, session.get('time_frame'))
 
     # dic avec toutes les occurences pour chaque genres 
     user_top_genres = data_client.get_user_top_genres()
@@ -277,15 +246,6 @@ def myhomepage():
 
     # get link to playlist suggested by genre
     playlists_uris =  api_client.get_playlist_to_genre(top_genres)
-
-
-
-
-
-    
-
-
-
 
     # Tracks and artists
     user_top_tracks = api_client.get_user_top_info(5, time_frame, "tracks")
@@ -350,10 +310,7 @@ def myhomepage():
 
                 
 
-    return render_template('Mindex.html', playlists_uris=playlists_uris, genres=top_genres, songs=songs, song_ids=song_ids, song_covers=song_covers, song_artists=song_artists, song_albums=song_albums, artists=artists, artist_ids=artist_ids, artist_covers=artist_covers, zip=zip, time=time_frame)
-
-
-
+    return render_template('Mindex.html',username=session['username'], playlists_uris=playlists_uris, genres=top_genres, songs=songs, song_ids=song_ids, song_covers=song_covers, song_artists=song_artists, song_albums=song_albums, artists=artists, artist_ids=artist_ids, artist_covers=artist_covers, zip=zip, time=time_frame)
 
 @app.route('/Mmoretracks', methods=['POST', 'GET'])
 def mymoretracks():
@@ -390,9 +347,7 @@ def mymoretracks():
             api_client.add_items_to_playlist(get_new_playlist_id, csv_ids)
 
 
-    return render_template('Mmoretracks.html', songs=songs, song_ids=song_ids, song_covers=song_covers, song_artists=song_artists, song_albums=song_albums, zip=zip, time=time_frame)
-
-
+    return render_template('Mmoretracks.html',username=session['username'], songs=songs, song_ids=song_ids, song_covers=song_covers, song_artists=song_artists, song_albums=song_albums, zip=zip, time=time_frame)
 
 @app.route('/Mmoreartists', methods=['POST', 'GET'])
 def mymoreartists():
@@ -434,11 +389,7 @@ def mymoreartists():
             api_client.add_items_to_playlist(get_new_playlist_id, csv_ids)
 
     
-    return render_template('Mmoreartists.html', f=artists_followers, g=artists_genres, p=artists_pop, artists=artists, artist_ids=artist_ids, artist_covers=artist_covers, zip=zip, time=time_frame)
-
-    
-
-
+    return render_template('Mmoreartists.html',username=session['username'], f=artists_followers, g=artists_genres, p=artists_pop, artists=artists, artist_ids=artist_ids, artist_covers=artist_covers, zip=zip, time=time_frame)
 
 @app.route('/change-time/<string:id>')
 def changeTime(id):
@@ -454,7 +405,6 @@ def changeTime(id):
     else:      
         session['time_frame'] = id
         return redirect(url_for('myhomepage', _external=True, _anchor='#tops'))
-
 
 def init_api_client(): 
     
