@@ -308,6 +308,8 @@ def myhomepage():
                 if top_genres[4] in artist_info['genres']:
                     session['artists_per_genre'][top_genres[4]][artist]= artist_info['image']
 
+
+
                 # print("french hip hop")
                 # print(len(artists_per_genre[top_genres[0]]))
                 # print("pop urbaine")
@@ -386,27 +388,36 @@ def mymoreartists():
         artists = user_top_artists['name']
         artist_ids = user_top_artists['id']
         artist_covers = user_top_artists['image']
-        artists_followers = []
-        artists_genres = []
-        artists_pop = []
-        for artist in artist_ids :
-            artist_info = api_client.get_track_or_artist_info(artist, "artists")
-            artists_followers.append(f"{artist_info['followers']:,d}")
-            artists_genres.append(artist_info['genres'])
-            artists_pop.append(artist_info['popularity'])
-    
-    if request.method == "POST":
-            print("--------------------------------------CREATE PLAYYYYYYYYYYYYYYYYYYYLIST------------------------------")
+        # print(artist_ids)
 
-            user_id = api_client.get_user_info()['user_info']['id']
-            playlist_name = "My Top 50 atists - TrackSpot"
+        artist_ids_clean = '' 
+        for artist_id in artist_ids:
+            artist_ids_clean = artist_ids_clean +','+ artist_id
 
-            get_new_playlist_id = api_client.create_new_playlist(user_id, playlist_name)['id']
-            modified_ids = ["spotify:track:" + track_id for track_id in artist_ids]
-            csv_ids = ','.join(modified_ids)
-            print("---------------------------------------:////////////////////////////>-------------------------------")
+        artist_ids_clean = artist_ids_clean[1:]
 
-            api_client.add_items_to_playlist(get_new_playlist_id, csv_ids)
+        artists_followers = api_client.get_multiple_track_or_artist_info("artists",artist_ids_clean,"followers")
+        # artists_followers = f"{artists_followers[]:,d}"
+
+        artists_genres = api_client.get_multiple_track_or_artist_info("artists",artist_ids_clean,"genres")
+        artists_pop = api_client.get_multiple_track_or_artist_info("artists",artist_ids_clean,"popularity")
+
+   
+
+        # artists_followers = []
+        # # artists_genres = []
+        # # artists_pop = []
+
+        # for artist in artist_ids :
+        #       artist_info = api_client.get_track_or_artist_info(artist, "artists")
+        #       artists_followers.append(f"{artist_info['followers']:,d}")
+        #     #   print('_________________________________________333______________________________________________________')
+        # #      print(type(artist_info['followers']))
+        #     #   print((f"{artist_info['followers']:,d}"))
+        #     #  artists_genres.append(artist_info['genres']))
+        # #     artists_pop.append(artist_info['popularity'])
+        # print('_________________________________________333______________________________________________________')
+        # print(artists_followers)
 
     
     return render_template('Mmoreartists.html',username=session['username'], f=artists_followers, g=artists_genres, p=artists_pop, artists=artists, artist_ids=artist_ids, artist_covers=artist_covers, zip=zip, time=time_frame)

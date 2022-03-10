@@ -156,7 +156,18 @@ class SpotifyApiClient():
         url = self.API_BASE_URL + f"/{info_type}?ids={type_ids}"
         get = requests.get(url, headers=self.auth_body)
         data = retry_call(json.loads, fargs=[get.text])
-        all_info = [info[feature] for info in data[info_type]]
+
+        if feature == "followers":
+            all_info = []
+            for info in data[info_type]:
+                # print('22999_____________________________________________________-')
+                all_info.append(f"{info[feature]['total']:,d}")
+
+
+        else:
+            all_info = [info[feature] for info in data[info_type]]
+
+        
         return all_info
 
     def create_new_playlist(self, user_id, name):
