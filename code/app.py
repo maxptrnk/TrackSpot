@@ -37,6 +37,7 @@ def redirectPage():
     session['oauth_info'] = auth_info
     session['start_time'] = int(time.time())
     session['time_frame'] = "short_term"
+    session['artists_per_genre']= {}
 
 
     
@@ -231,25 +232,26 @@ def testgraph():
 @app.route("/index")
 def myhomepage():
 
+    try:
+        data_client
+    except NameError:
+         return redirect(url_for('index', _external=True))
+
     api_client = init_api_client()
     time_frame = session.get('time_frame')
 
-
     # dic avec toutes les occurences pour chaque genres 
     user_top_genres = data_client.get_user_top_genres()
-
     # selection des genres le plus populaire de l'utilisateur
     top_genres = dict(Counter(user_top_genres).most_common(5)) 
-
+    # get link to playlist suggested by genre
+    playlists_uris =  api_client.get_playlist_to_genre(top_genres)
     # Top 5 genre (sans valeurs)
     top_genres = list(top_genres)
 
-    # get link to playlist suggested by genre
-    playlists_uris =  api_client.get_playlist_to_genre(top_genres)
-
     # Tracks and artists
     user_top_tracks = api_client.get_user_top_info(5, time_frame, "tracks")
-    user_top_artists_short = api_client.get_user_top_info(5, time_frame, "artists")
+    user_top_artists_short = api_client.get_user_top_info(50, time_frame, "artists")
 
     if not user_top_tracks: #if the returned data is empty it will set the values to empty
         songs = ['']
@@ -274,43 +276,61 @@ def myhomepage():
         artists = user_top_artists_short['name']
         artist_ids = user_top_artists_short['id']
         artist_covers = user_top_artists_short['image']
-        artists_genres = []
-        artists_per_genre = {}
 
-        # # !!boucle trop lente
-        # for genre in top_genres:     
-        #     for artist in user_top_artists['id'] :
+        if session['artists_per_genre'] == {}:
+            artists_genres = []
+            session['artists_per_genre']
 
-        #         if (genre in artists_per_genre.keys() and len(artists_per_genre[genre]) < 5) or genre not in artists_per_genre.keys():
+            #  une boucle avec des if pour chaque 
 
-        #             print("_______________________________")
+            session['artists_per_genre'][top_genres[0]] = {}
+            session['artists_per_genre'][top_genres[1]] = {}
+            session['artists_per_genre'][top_genres[2]] = {}
+            session['artists_per_genre'][top_genres[3]] = {}
+            session['artists_per_genre'][top_genres[4]] = {}
 
+            for artist in user_top_artists_short['id'] :
 
-        #             artist_info = api_client.get_track_or_artist_info(artist, "artists")
-        #             artists_genres.append(artist_info['genres'])
-                    
-        #             # get user_artists for each genre
-        #             if genre in artist_info['genres']:
+                artist_info = api_client.get_track_or_artist_info(artist, "artists")
+                artists_genres.append(artist_info['genres'])
 
-        #                 if genre not in artists_per_genre.keys() :
-        #                     # print(artists_per_genre)µ
-                            
-        #                     # print(genre)
-        #                     artists_per_genre[genre] = {}
-        #                     # print(artists_per_genre)
-        #                     artists_per_genre[genre][artist]= artist_info['image']
-        #                     # print(artists_per_genre)
-        #                 else:
-        #                     # print(artists_per_genre)
-        #                     artists_per_genre[genre][artist]= artist_info['image']
-        #                     # print(artists_per_genre)
+                # print(artist_info['genres'])
+                # print("____________________________________________________________________________________________________________")           
 
-        #                 print(len(artists_per_genre[genre]))
+                if top_genres[0] in artist_info['genres']:
+                    session['artists_per_genre'][top_genres[0]][artist]= artist_info['image']
+                if top_genres[1] in artist_info['genres']:
+                    session['artists_per_genre'][top_genres[1]][artist]= artist_info['image']
+                if top_genres[2] in artist_info['genres']:
+                    session['artists_per_genre'][top_genres[2]][artist]= artist_info['image']
+                if top_genres[3] in artist_info['genres']:
+                    session['artists_per_genre'][top_genres[3]][artist]= artist_info['image']
+                if top_genres[4] in artist_info['genres']:
+                    session['artists_per_genre'][top_genres[4]][artist]= artist_info['image']
 
-
+                # print("french hip hop")
+                # print(len(artists_per_genre[top_genres[0]]))
+                # print("pop urbaine")
+                # print(len(artists_per_genre[top_genres[1]]))
+                # print("russian hip hop")
+                # print(len(artists_per_genre[top_genres[2]]))
+                # print("orchestral soundtrack")
+                # print(len(artists_per_genre[top_genres[3]]))
+                # print("soundtrack")
+                # print(len(artists_per_genre[top_genres[4]]))
                 
 
-    return render_template('Mindex.html',username=session['username'], playlists_uris=playlists_uris, genres=top_genres, songs=songs, song_ids=song_ids, song_covers=song_covers, song_artists=song_artists, song_albums=song_albums, artists=artists, artist_ids=artist_ids, artist_covers=artist_covers, zip=zip, time=time_frame)
+            #     print("_______________________________")
+            # print(artists_per_genre)
+
+                # structure du dict : artists_per_genre ={
+                #                     genre0:{arstist:image,arstist:image,arstist:image},
+                #                     genre1:{arstist:image,arstist:image,arstist:image},
+                #                     genre2:{arstist:image,arstist:image,arstist:image},
+                #                     genre3:{arstist:image,arstist:image,arstist:image},
+                #                     genre4:{arstist:image,arstist:image,arstist:image} }    
+
+    return render_template('Mindex.html',username=session['username'],artists_per_genre=session['artists_per_genre'], playlists_uris=playlists_uris, genres=top_genres, songs=songs, song_ids=song_ids, song_covers=song_covers, song_artists=song_artists, song_albums=song_albums, artists=artists, artist_ids=artist_ids, artist_covers=artist_covers, zip=zip, time=time_frame)
 
 @app.route('/Mmoretracks', methods=['POST', 'GET'])
 def mymoretracks():

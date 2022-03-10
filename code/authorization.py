@@ -3,7 +3,8 @@ import requests, json
 class SpotifyOauthClient():
 
     def __init__(self):
-
+        # self.CLIENT_ID = ""
+        # self.CLIENT_SECRET = ""
         self.CLIENT_ID = "10cd52019fc94084a9a69365d9858702"
         self.CLIENT_SECRET = "c11b1314e5d447ea9bc4181a9f0ef4a7"
         self.REDIRECT_URI = "http://127.0.0.1:5000/redirect/"
@@ -12,6 +13,9 @@ class SpotifyOauthClient():
         self.OAUTH_TOKEN_URL = "https://accounts.spotify.com/api/token"
     
     def get_auth_url(self):
+
+        assert self.CLIENT_ID != "", "You must add a valid CLIENT_ID before launch app, see in README"
+        assert self.CLIENT_SECRET != "", "You must add a valid CLIENT_SECRET before launch app, see in README"
 
         payload = {
             "client_id": self.CLIENT_ID,

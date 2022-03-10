@@ -164,7 +164,7 @@
     var layout = d3.layout.cloud()
         .size([600, 400])
         .words({{other_genres_listened|safe}}.map(function(d) {
-          return {text: d, size: 8 + Math.random() * 60, test: "haha"};
+          return {text: d, size: 8 + Math.random() * 30, test: "haha"};
         }))
         .padding(5)
         .rotate(function() { return ~~(Math.random() * 2) * 90; })
@@ -185,7 +185,7 @@
         .enter().append("text")
           .style("font-size", function(d) { return d.size + "px"; })
           .style("font-family", "Impact")
-          .style("fill",'#FFFF00')
+          .style("fill",'#cda45e')
           .attr("text-anchor", "middle")
           .attr("transform", function(d) {
             return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";

@@ -160,12 +160,13 @@
                     <div class="scrollbar" id="style-1">
                       <div class="force-overflow">
 
-                      <table class="table">
+                      <table loading="lazy" class="table">
                         <tbody>      
-                          {% for i, a_cover, id in zip(range(5), artist_covers, artist_ids) %}      
+                          
+                          {% for a_cover, id in zip(artists_per_genre[genres[0]].values(), artists_per_genre[genres[0]].keys()) %}      
                                 <td>
                                   <a href="info/{{id}}A">
-                                    <img src="{{a_cover}}" width="100" height="100"/>
+                                    <img loading="lazy" src="{{a_cover}}" width="100" height="100"/>
                                   </a>
                                 </td>                                            
                         {% endfor %}
@@ -197,12 +198,12 @@
                   <div class="scrollbar" id="style-1">
                     <div class="force-overflow">
 
-                    <table class="table">
+                    <table loading="lazy" class="table">
                       <tbody>      
-                        {% for i, a_cover, id in zip(range(5), artist_covers, artist_ids) %}      
-                              <td>
+                        {% for a_cover, id in zip(artists_per_genre[genres[1]].values(), artists_per_genre[genres[1]].keys()) %}      
+                        <td>
                                 <a href="info/{{id}}A">
-                                  <img src="{{a_cover}}" width="100" height="100"/>
+                                  <img loading="lazy" src="{{a_cover}}" width="100" height="100"/>
                                 </a>
                               </td>                                            
                       {% endfor %}
@@ -236,12 +237,12 @@
                   <div class="scrollbar" id="style-1">
                     <div class="force-overflow">
 
-                    <table class="table">
+                    <table loading="lazy" class="table">
                       <tbody>      
-                        {% for i, a_cover, id in zip(range(5), artist_covers, artist_ids) %}      
-                              <td>
+                        {% for a_cover, id in zip(artists_per_genre[genres[2]].values(), artists_per_genre[genres[2]].keys()) %}      
+                        <td>
                                 <a href="info/{{id}}A">
-                                  <img src="{{a_cover}}" width="100" height="100"/>
+                                  <img  loading="lazy" src="{{a_cover}}" width="100" height="100"/>
                                 </a>
                               </td>                                            
                       {% endfor %}
@@ -272,12 +273,12 @@
                   <div class="scrollbar" id="style-1">
                     <div class="force-overflow">
 
-                    <table class="table">
+                    <table loading="lazy" class="table">
                       <tbody>      
-                        {% for i, a_cover, id in zip(range(5), artist_covers, artist_ids) %}      
-                              <td>
+                        {% for a_cover, id in zip(artists_per_genre[genres[3]].values(), artists_per_genre[genres[3]].keys()) %}      
+                        <td>
                                 <a href="info/{{id}}A">
-                                  <img src="{{a_cover}}" width="100" height="100"/>
+                                  <img loading="lazy" src="{{a_cover}}" width="100" height="100"/>
                                 </a>
                               </td>                                            
                       {% endfor %}
@@ -307,12 +308,12 @@
                   <div class="scrollbar" id="style-1">
                     <div class="force-overflow">
 
-                    <table class="table">
+                    <table loading="lazy" class="table">
                       <tbody>      
-                        {% for i, a_cover, id in zip(range(5), artist_covers, artist_ids) %}      
-                              <td>
+                        {% for a_cover, id in zip(artists_per_genre[genres[4]].values(), artists_per_genre[genres[4]].keys()) %}      
+                        <td>
                                 <a href="info/{{id}}A">
-                                  <img src="{{a_cover}}" width="100" height="100"/>
+                                  <img loading="lazy" src="{{a_cover}}" width="100" height="100"/>
                                 </a>
                               </td>                                            
                       {% endfor %}
