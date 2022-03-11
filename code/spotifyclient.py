@@ -24,7 +24,7 @@ class SpotifyApiClient():
     def get_playlist_to_genre(self,genres):
 
         """
-        Find playlists on spotify via an api call for each given genre 
+        Find via an api call a playlist on spotify correspoding to each given genre 
 
         Parameters:
         genres: contains the 5 names of the user's favorite music genres (list of string)
@@ -32,7 +32,6 @@ class SpotifyApiClient():
         Return:
         playlists_uris: links to spotify playlists (list of string)
         """
-
 
         # get genre
 
@@ -59,37 +58,25 @@ class SpotifyApiClient():
 
         Return:
         user_info : Get detailed profile information about the current user (dic)
-        playlist_info :Get a dic of the playlists owned or followed by a Spotify user
-        following_info : Get the current user's followed artists.
         """
 
         output_dict = lambda **data: data #to format the returned data nicely and readable
-
-        playlist_url = self.API_BASE_URL + "/me/playlists?offset=0&limit=50"
-        followed_artist_url = self.API_BASE_URL + "/me/following?type=artist&limit=50"
-        shows_url = self.API_BASE_URL + "/shows"
-
         user_info_get = requests.get(f"{self.API_BASE_URL}/me", headers=self.auth_body)
-        playlist_get = requests.get(playlist_url, headers=self.auth_body)
-        followed_artists_get = requests.get(followed_artist_url, headers=self.auth_body)
-        shows_get = requests.get(shows_url, headers=self.auth_body)
-
         user_info_data = json.loads(user_info_get.text)
-        playlists_data = json.loads(playlist_get.text)
-        followed_artists_data = json.loads(followed_artists_get.text)
+        return output_dict(user_info=user_info_data)
 
-        return output_dict(user_info=user_info_data, playlist_info=playlists_data, following_info=followed_artists_data)
 
     def get_user_top_info(self, limit, time_range, top_type):
         """
-        
+        Resquest information about the user's top artists or tracks
+
         Parameters:
-        limit: number of element to return (max=50) (int) 
-        time_range:
-        top_type:
+        limit: number of elements requested (int)
+        time_range: period to which correspond elements requested (str)
+        top_type: type of elements requested artists or tracks (str)
 
         Return:
-        get_user_top_data(data_dict): 
+        data_client : (dic)
         """
 
         url = self.API_BASE_URL + f"/me/top/{top_type}?time_range={time_range}&limit={limit}"
