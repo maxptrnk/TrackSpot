@@ -42,6 +42,11 @@ class SpotifyApiClient():
             playlist_url = self.API_BASE_URL + "/search?q=playlist:"+encoded_genre+"&type=playlist&limit=1"
             playlist_get = requests.get(playlist_url, headers=self.auth_playlist)
             playlists_data = json.loads(playlist_get.text)
+
+            # if playlist corresponding to the particular genre not found, replace by Top global playlist
+            if playlists_data['playlists']['items'] == []:
+                playlists_data['playlists']['items'].append({'id':'37i9dQZEVXbMDoHDwVN2tF'})
+                
             playlists_uris.append(playlists_data['playlists']['items'][0]['id'])
 
         return playlists_uris
