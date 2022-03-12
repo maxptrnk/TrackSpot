@@ -24,6 +24,8 @@
 
   <!-- Template Main CSS File -->
   <link href="../static/assets/css/style.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 </head>
 
@@ -36,13 +38,17 @@
     <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
       <div class="row">
         <div class="col-lg-8">
-          <h1>Welcome to <span>TrackSpot</span></h1>
+          <h1>
+            Welcome to <spanh>TrackSpot</spanh> 
+            <div id="loadingwheel"class="spinner-grow" role="status">
+            <span class="sr-only"></span></div>
+          </h1>
 
           <div class="btns">
 
             <div id="login">
-              <input type="button" class="btn-menu animated fadeInUp scrollto" onclick="location.href='{{url}}';" value="Login with Spotify" />
-          </div>
+              <input  id="show" type="button" class="btn-menu animated fadeInUp scrollto" onclick="location.href='{{url}}';" value="Login with Spotify" />
+            </div>
           </div>
         </div>
 
@@ -76,6 +82,18 @@
 
   <!-- Template Main JS File -->
   <script src="../static/assets/js/main.js"></script>
+  <script>
+    $(document).ready(function(){
+
+      $('#loadingwheel').hide();
+
+      $("#show").click(function(){
+        $("p").show();
+        $('#loadingwheel').show();
+      });
+    });
+    </script>
+
 
 </body>
 

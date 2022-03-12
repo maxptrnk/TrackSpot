@@ -21,11 +21,11 @@
             <a href="/change-time/medium_termM"><h4 id="medium">6 Months</h4></a>
             <a href="/change-time/long_termM"><h4 id="long">All Time</h4></a>
             {% if time == "short_term" %}
-                <style>#short{color: #1DB954}</style>
+                <style>#short{color: #cda45e}</style>
             {% elif time == "medium_term" %}
-                <style>#medium{color: #1DB954}</style>
+                <style>#medium{color: #cda45e}</style>
             {% else %}
-                <style>#long{color: #1DB954}</style>
+                <style>#long{color: #cda45e}</style>
             {% endif %}
         </div>
 
@@ -47,12 +47,7 @@
             </thead>
             <tbody>
 
-             
-
-
               {% for i, followers, genres, popularity, artist, a_cover, id in zip(range(1,51),f,g,p,artists, artist_covers, artist_ids) %}
-
-
 
                 <tr>
                     <th scope="row">{{i}}</th>
@@ -68,39 +63,12 @@
                     </td>
                     <td>{{popularity}}</td>
                     <td>{{followers}}</td>
-                   
-
-                
                 </tr>
 
                 {% endfor %}
-
-
-
-                    
-
-
             </tbody>
           </table>
         </div>
-
-        <div class="form">
-
-          <form action='/Mmoretracks' method="POST">
-              <div class="submit">
-                  <div id="show-more">
-                      <input type="submit" id="button"  class="btn btn-outline-secondary" name="slide-submit" value="Create Playlist" onclick="alert('A new playlist will be created in your Spotify account with the new songs. Enjoy!')">
-                  </div>
-              </div>
-          </form>
-      </div>
-
-      <!-- space -->
-    <div><p> </p></div>
-    <!-- space -->
-    <div><p> </p></div>
-
-
   </div>  
 
   <!--//////////////working\\\\\\\\\\\\ -->

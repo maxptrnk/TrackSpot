@@ -22,11 +22,11 @@
             <a href="/change-time/medium_termA"><h4 id="medium">6 Months</h4></a>
             <a href="/change-time/long_termA"><h4 id="long">All Time</h4></a>
             {% if time == "short_term" %}
-                <style>#short{color: #1DB954}</style>
+                <style>#short{color: #cda45e}</style>
             {% elif time == "medium_term" %}
-                <style>#medium{color: #1DB954}</style>
+                <style>#medium{color: #cda45e}</style>
             {% else %}
-                <style>#long{color: #1DB954}</style>
+                <style>#long{color: #cda45e}</style>
             {% endif %}
         </div>
 
@@ -50,13 +50,11 @@
                         <tr>
                             <th scope="row">{{i}}</th>  
                             <td>
-                                <a href='info/{{id}}A'>
                                     <div class="cover">
                                         {% if id != '' and a_cover != '' %}
                                         <img src="{{s_cover}}" width="50" height="50"/>
                                         {% endif %}
                                     </div>
-                                </a>
                             </td>                                       
                             <td style="width: 280px;">{{song}}</td>
                             <td style="width: 280px;">{{s_artist}}</td>

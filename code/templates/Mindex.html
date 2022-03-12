@@ -57,19 +57,15 @@
                 <h3>Top Tracks</h3>
               </div>
                 {% for i,song, s_cover, s_artist, s_album, id in zip(range(5),songs, song_covers, song_artists, song_albums, song_ids) %}
-                        <div class="tracks">
-                            <a href='info/{{id}}T'>
-                                <div class="cover">
-                                    {% if id != '' and s_cover != '' %}
-                                        <img src="{{s_cover}}"/>
-                                    {% endif %}
-                                </div>
-                                <div class="name">
-                                    <ptops>{{song}}</ptops>
-                                    <div class='song-info'><ptops><span>{{s_artist}}&nbsp; &#8226; &nbsp;{{s_album}}</span></ptops></div>
-                                </div>
-                            </a>
-                        </div>
+                    <div class="tracks">
+                      <div class="cover">
+                          <iframe src="https://open.spotify.com/embed/track/{{id}}" width="70" height="70" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                      </div>
+                      <div class="name">
+                          <ptops>{{song}}</ptops>
+                          <div class='song-info'><ptops><span>{{s_artist}}&nbsp; &#8226; &nbsp;{{s_album}}</span></ptops></div>
+                      </div>
+                    </div>
                 {%endfor%}
 
                 <div id="show-more">
@@ -82,19 +78,17 @@
                 </div>
                 
                 {% for i, artist, a_cover, id in zip(range(5),artists, artist_covers, artist_ids) %}
-                        <div class="artists">
-                            <a href='info/{{id}}A'>
-                                <div class="cover">
-                                    {% if id != '' and a_cover != '' %}
-                                        <img src="{{a_cover}}"/>
-                                        
-                                    {% endif %}
-                                </div>
-                                <div class="name">
-                                  <ptops>{{artist}}</ptops>
-                                </div>
-                            </a>
-                        </div>
+                  <div class="artists">
+                              
+                    <div class="cover">
+                        {% if id != '' and a_cover != '' %}
+                          <iframe src="https://open.spotify.com/embed/artist/{{id}}" width="70" height="70" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>  
+                        {% endif %}
+                    </div>
+                    <div class="name">
+                      <ptops>{{artist}}</ptops>
+                    </div>
+                  </div>
                 {%endfor%}
                 <div id="show-more">
                   <a href="/Mmoreartists">Show More</a>
@@ -154,7 +148,8 @@
 
                 <div class="col-lg-5 details order-lg-1">
                   <h3>{{genres[0]}}</h3>
-                  <p class="fst-italic"> You can here your tracks of this genre and a playlist of this genre that you shoud like </p>
+                  <p class="fst-italic"> Here are your favorite artists of this genre and also a playlist of this genre that you should like  </p>
+
 
                   <div id="wrapper"> 
                     <div class="scrollbar" id="style-1">
@@ -164,11 +159,9 @@
                         <tbody>      
                           
                           {% for a_cover, id in zip(artists_per_genre[genres[0]].values(), artists_per_genre[genres[0]].keys()) %}      
-                                <td>
-                                  <a href="info/{{id}}A">
-                                    <img loading="lazy" src="{{a_cover}}" width="100" height="100"/>
-                                  </a>
-                                </td>                                            
+                            <td> 
+                              <iframe src="https://open.spotify.com/embed/artist/{{id}}" width="80" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                            </td>                                            
                         {% endfor %}
             
                         </tbody>
@@ -193,7 +186,8 @@
                 <div class="col-lg-5 details  order-lg-1">
 
                   <h3>{{genres[1]}}</h3>
-                  <p class="fst-italic"> You can here your tracks of this genre and a playlist of this genre that you shoud like </p>
+                  <p class="fst-italic"> Here are your favorite artists of this genre and also a playlist of this genre that you should like  </p>
+
 
                   <div class="scrollbar" id="style-1">
                     <div class="force-overflow">
@@ -201,11 +195,9 @@
                     <table loading="lazy" class="table">
                       <tbody>      
                         {% for a_cover, id in zip(artists_per_genre[genres[1]].values(), artists_per_genre[genres[1]].keys()) %}      
-                        <td>
-                                <a href="info/{{id}}A">
-                                  <img loading="lazy" src="{{a_cover}}" width="100" height="100"/>
-                                </a>
-                              </td>                                            
+                        <td> 
+                          <iframe src="https://open.spotify.com/embed/artist/{{id}}" width="80" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                        </td>                                            
                       {% endfor %}
           
                       </tbody>
@@ -232,7 +224,8 @@
                 <div class="col-lg-5 details  order-lg-1">
 
                   <h3>{{genres[2]}}</h3>
-                  <p class="fst-italic"> You can here your tracks of this genre and a playlist of this genre that you shoud like </p>
+                  <p class="fst-italic"> Here are your favorite artists of this genre and also a playlist of this genre that you should like  </p>
+
 
                   <div class="scrollbar" id="style-1">
                     <div class="force-overflow">
@@ -240,11 +233,9 @@
                     <table loading="lazy" class="table">
                       <tbody>      
                         {% for a_cover, id in zip(artists_per_genre[genres[2]].values(), artists_per_genre[genres[2]].keys()) %}      
-                        <td>
-                                <a href="info/{{id}}A">
-                                  <img  loading="lazy" src="{{a_cover}}" width="100" height="100"/>
-                                </a>
-                              </td>                                            
+                        <td> 
+                          <iframe src="https://open.spotify.com/embed/artist/{{id}}" width="80" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                        </td>>                                            
                       {% endfor %}
           
                       </tbody>
@@ -268,7 +259,8 @@
                 <div class="col-lg-5 details  order-lg-1">
 
                   <h3>{{genres[3]}}</h3>
-                  <p class="fst-italic"> You can here your tracks of this genre and a playlist of this genre that you shoud like </p>
+                  <p class="fst-italic"> Here are your favorite artists of this genre and also a playlist of this genre that you should like  </p>
+
 
                   <div class="scrollbar" id="style-1">
                     <div class="force-overflow">
@@ -276,11 +268,9 @@
                     <table loading="lazy" class="table">
                       <tbody>      
                         {% for a_cover, id in zip(artists_per_genre[genres[3]].values(), artists_per_genre[genres[3]].keys()) %}      
-                        <td>
-                                <a href="info/{{id}}A">
-                                  <img loading="lazy" src="{{a_cover}}" width="100" height="100"/>
-                                </a>
-                              </td>                                            
+                        <td> 
+                          <iframe src="https://open.spotify.com/embed/artist/{{id}}" width="80" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                        </td>                                            
                       {% endfor %}
           
                       </tbody>
@@ -303,7 +293,8 @@
                 <div class="col-lg-5 details order-lg-1">
 
                   <h3>{{genres[4]}}</h3>
-                  <p class="fst-italic"> You can here your tracks of this genre and a playlist of this genre that you shoud like </p>
+                  <p class="fst-italic"> Here are your favorite artists of this genre and also a playlist of this genre that you should like  </p>
+
 
                   <div class="scrollbar" id="style-1">
                     <div class="force-overflow">
@@ -311,11 +302,11 @@
                     <table loading="lazy" class="table">
                       <tbody>      
                         {% for a_cover, id in zip(artists_per_genre[genres[4]].values(), artists_per_genre[genres[4]].keys()) %}      
-                        <td>
-                                <a href="info/{{id}}A">
-                                  <img loading="lazy" src="{{a_cover}}" width="100" height="100"/>
-                                </a>
-                              </td>                                            
+                        
+                          <td> 
+                            <iframe src="https://open.spotify.com/embed/artist/{{id}}" width="80" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                          </td>
+                                                                    
                       {% endfor %}
           
                       </tbody>

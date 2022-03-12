@@ -458,7 +458,7 @@ def mymoreartists():
         artist_ids_clean = artist_ids_clean[1:]
 
         artists_followers = api_client.get_multiple_track_or_artist_info("artists",artist_ids_clean,"followers")
-        # artists_followers = f"{artists_followers[]:,d}"
+
 
         artists_genres = api_client.get_multiple_track_or_artist_info("artists",artist_ids_clean,"genres")
         artists_pop = api_client.get_multiple_track_or_artist_info("artists",artist_ids_clean,"popularity")

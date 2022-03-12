@@ -14,6 +14,10 @@
     justify-content: center; */
     
 }
+
+.name {
+    margin-left: 20px;
+}
 .cover img{
     width: 70px;
     height: 70px;
