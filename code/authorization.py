@@ -5,8 +5,8 @@ class SpotifyOauthClient():
     def __init__(self):
         # self.CLIENT_ID = ""
         # self.CLIENT_SECRET = ""
-        self.CLIENT_ID = "10cd52019fc94084a9a69365d9858702"
-        self.CLIENT_SECRET = "c11b1314e5d447ea9bc4181a9f0ef4a7"
+        self.CLIENT_ID = ""
+        self.CLIENT_SECRET = ""
         self.REDIRECT_URI = "http://127.0.0.1:5000/redirect/"
         self.SCOPE = "user-top-read user-read-private user-follow-read playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private"
         self.OAUTH_AUTHORIZE_URL = "https://accounts.spotify.com/authorize"
