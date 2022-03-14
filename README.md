@@ -72,7 +72,7 @@ venvTrackSpot\Scripts\activate
 
 ## **Launch TrackSpot**
 
-Where your are this directory: 'TrackSpot/code', you can install requirements with the following command
+When your are this directory: 'TrackSpot/code', you can install requirements with the following command
 
 
 ```
